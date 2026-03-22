@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 
 const CONFIRM_SECRET = process.env.JWT_CONFIRM_SECRET || 'confirm-secret-change-me';
-const APP_URL = process.env.APP_URL || 'http://localhost:5173';
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3001';
 
 function createTransport() {
   return nodemailer.createTransport({
@@ -31,8 +31,8 @@ async function sendCrewAssignmentEmail({ crew, project, assignment }) {
   }
   const transport = createTransport();
   const token = generateConfirmToken(crew.id, project.id);
-  const confirmUrl = `${APP_URL}/portal/confirm/${token}?action=confirm`;
-  const declineUrl = `${APP_URL}/portal/confirm/${token}?action=decline`;
+  const confirmUrl = `${SERVER_URL}/api/portal/confirm/${token}?action=confirm`;
+  const declineUrl = `${SERVER_URL}/api/portal/confirm/${token}?action=decline`;
 
   const locationLine = project.is_shoot && project.shoot_location
     ? `<p><strong>Location:</strong> ${project.shoot_location}${project.shoot_address ? ', ' + project.shoot_address : ''}</p>`

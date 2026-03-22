@@ -136,7 +136,7 @@ export default function ProjectDetail() {
             {project.crew.length === 0 && <p className="p-5 text-sm text-slate-400">No crew assigned</p>}
             {project.crew.map(c => {
               const cost = (c.day_rate || 0) * (c.days_worked || 0);
-              const confirmed = c.confirmed === 1 ? 'Confirmed' : c.confirmed === 0 ? 'Declined' : 'Pending2';
+              const confirmed = c.confirmed === 1 ? 'Confirmed' : c.confirmed === 0 ? 'Declined' : 'Pending';
               return (
                 <div key={c.crew_id} className="flex items-center justify-between px-5 py-3">
                   <div>

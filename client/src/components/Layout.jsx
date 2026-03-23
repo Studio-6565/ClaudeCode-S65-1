@@ -1,18 +1,20 @@
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
-  { to: '/', label: 'Dashboard', icon: '⬛' },
-  { to: '/clients', label: 'Clients', icon: '👥' },
-  { to: '/crew', label: 'Crew', icon: '🎬' },
-  { to: '/projects', label: 'Projects', icon: '📁' },
-  { to: '/schedule', label: 'Schedule', icon: '📅' },
-  { to: '/invoices', label: 'Invoices', icon: '💰' },
+  { to: '/', label: 'Dashboard', end: true },
+  { to: '/projects', label: 'Projects' },
+  { to: '/schedule', label: 'Calendar' },
+  { to: '/crew', label: 'Crew' },
+  { to: '/invoices', label: 'Invoices' },
+  { to: '/clients', label: 'Clients' },
 ];
 
 export default function Layout({ children }) {
   const { adminUser, logoutAdmin } = useAuth();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function handleLogout() {
     logoutAdmin();
@@ -20,50 +22,109 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50">
-      {/* Sidebar */}
-      <aside className="w-56 flex flex-col shrink-0" style={{ backgroundColor: '#000' }}>
-        <div className="p-5 border-b border-zinc-800">
-          {/* Studio 65 logo mark */}
-          <div className="flex items-baseline gap-0.5">
-            <span className="text-white font-black tracking-tight" style={{ fontSize: '1.35rem', letterSpacing: '-0.03em' }}>studio</span>
-            <span className="font-black" style={{ fontSize: '0.85rem', color: '#ED1C24', WebkitTextStroke: '0.5px #ED1C24', letterSpacing: '-0.01em' }}>65</span>
-          </div>
-          <p className="text-xs text-zinc-500 mt-0.5">{adminUser?.name}</p>
-        </div>
-        <nav className="flex-1 p-3 space-y-0.5">
-          {navItems.map(item => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
-                }`
-              }
-              style={({ isActive }) => isActive ? { backgroundColor: '#ED1C24' } : {}}
-            >
-              <span className="text-base">{item.icon}</span>
-              {item.label}
+    <div style={{ minHeight: '100vh', backgroundColor: '#111' }}>
+      {/* Top Nav */}
+      <nav style={{ backgroundColor: '#000', borderBottom: '1px solid #1f1f1f', position: 'sticky', top: 0, zIndex: 40 }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', height: '56px', gap: '16px' }}>
+
+            {/* Logo */}
+            <NavLink to="/" style={{ display: 'flex', alignItems: 'baseline', gap: '2px', textDecoration: 'none', flexShrink: 0 }}>
+              <span style={{ color: '#fff', fontWeight: 900, fontSize: '1.25rem', letterSpacing: '-0.04em' }}>studio</span>
+              <span style={{ color: '#ED1C24', fontWeight: 900, fontSize: '0.8rem' }}>65</span>
             </NavLink>
-          ))}
-        </nav>
-        <div className="p-3 border-t border-zinc-800">
-          <button
-            onClick={handleLogout}
-            className="w-full text-left px-3 py-2 text-sm text-zinc-500 hover:text-white rounded-lg hover:bg-zinc-900 transition-colors"
-          >
-            Sign out
-          </button>
+
+            <div style={{ width: '1px', height: '20px', backgroundColor: '#2a2a2a', flexShrink: 0 }} />
+
+            {/* Desktop nav */}
+            <div className="hidden md:flex" style={{ gap: '2px', flex: 1 }}>
+              {navItems.map(item => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  style={({ isActive }) => ({
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    transition: 'all 0.15s',
+                    backgroundColor: isActive ? '#ED1C24' : 'transparent',
+                    color: isActive ? '#fff' : '#888',
+                  })}
+                  onMouseEnter={e => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.color = '#fff'; }}
+                  onMouseLeave={e => { if (e.currentTarget.style.backgroundColor !== 'rgb(237, 28, 36)') e.currentTarget.style.color = '#888'; }}
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
+
+            <div style={{ flex: 1 }} className="md:hidden" />
+
+            {/* Right side */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+              <span style={{ fontSize: '12px', color: '#555' }} className="hidden md:block">{adminUser?.name}</span>
+              <button
+                onClick={handleLogout}
+                className="hidden md:block"
+                style={{ fontSize: '12px', color: '#555', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: '6px' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                onMouseLeave={e => e.currentTarget.style.color = '#555'}
+              >
+                Sign out
+              </button>
+
+              {/* Hamburger - mobile */}
+              <button
+                onClick={() => setMenuOpen(o => !o)}
+                className="md:hidden"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', padding: '4px', fontSize: '20px' }}
+              >
+                {menuOpen ? '✕' : '☰'}
+              </button>
+            </div>
+          </div>
         </div>
-      </aside>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div style={{ backgroundColor: '#0a0a0a', borderTop: '1px solid #1f1f1f', padding: '8px 20px 16px' }}
+               className="md:hidden">
+            {navItems.map(item => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                onClick={() => setMenuOpen(false)}
+                style={({ isActive }) => ({
+                  display: 'block',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  fontSize: '15px',
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  color: isActive ? '#fff' : '#888',
+                  backgroundColor: isActive ? '#ED1C24' : 'transparent',
+                  marginBottom: '2px',
+                })}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <div style={{ borderTop: '1px solid #222', marginTop: '8px', paddingTop: '8px' }}>
+              <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#555', fontSize: '14px', padding: '8px 12px' }}>
+                Sign out
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto">
-        <div className="max-w-7xl mx-auto p-6">
-          {children}
-        </div>
+      <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '24px 20px' }}>
+        {children}
       </main>
     </div>
   );

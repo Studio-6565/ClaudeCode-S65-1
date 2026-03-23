@@ -103,31 +103,31 @@ export default function Schedule() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Schedule</h1>
+        <h1 className="text-2xl font-bold text-white">Schedule</h1>
         <button onClick={() => { setForm(EMPTY); setModal('add'); }} className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700">
           + New Event
         </button>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "14px", overflow: "hidden" }}>
         {/* Month navigation */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-100">
-          <button onClick={prevMonth} className="p-2 hover:bg-slate-100 rounded-lg text-slate-500">◀</button>
-          <h2 className="font-semibold text-slate-800">{monthName} {year}</h2>
-          <button onClick={nextMonth} className="p-2 hover:bg-slate-100 rounded-lg text-slate-500">▶</button>
+        <div className="flex items-center justify-between p-4 border-b border-zinc-900">
+          <button onClick={prevMonth} className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-500">◀</button>
+          <h2 className="font-semibold text-white">{monthName} {year}</h2>
+          <button onClick={nextMonth} className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-500">▶</button>
         </div>
 
         {/* Day headers */}
-        <div className="grid grid-cols-7 border-b border-slate-100">
+        <div className="grid grid-cols-7 border-b border-zinc-900">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-            <div key={d} className="text-center text-xs font-medium text-slate-400 py-2">{d}</div>
+            <div key={d} className="text-center text-xs font-medium text-zinc-600 py-2">{d}</div>
           ))}
         </div>
 
         {/* Calendar grid */}
         <div className="grid grid-cols-7">
           {Array.from({ length: firstDay }).map((_, i) => (
-            <div key={`empty-${i}`} className="min-h-20 border-r border-b border-slate-100 bg-slate-50/50" />
+            <div key={`empty-${i}`} className="min-h-20 border-r border-b border-zinc-900 bg-zinc-950/50" />
           ))}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
@@ -137,9 +137,9 @@ export default function Schedule() {
               <div
                 key={day}
                 onClick={() => openAdd(day)}
-                className="min-h-20 border-r border-b border-slate-100 p-1.5 cursor-pointer hover:bg-slate-50 transition-colors"
+                className="min-h-20 border-r border-b border-zinc-900 p-1.5 cursor-pointer hover:bg-zinc-950 transition-colors"
               >
-                <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-red-600 text-white' : 'text-slate-600'}`}>
+                <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-red-600 text-white' : 'text-zinc-400'}`}>
                   {day}
                 </div>
                 <div className="space-y-0.5">
@@ -161,42 +161,42 @@ export default function Schedule() {
 
       {/* Event detail panel */}
       {selectedEvent && (
-        <div className="bg-white rounded-xl border border-slate-200 p-5">
+        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "14px", padding: "20px" }}>
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="font-semibold text-slate-800 text-lg">{selectedEvent.title}</h2>
+              <h2 className="font-semibold text-white text-lg">{selectedEvent.title}</h2>
               {selectedEvent.project_name && <p className="text-sm text-red-600">{selectedEvent.project_name}</p>}
             </div>
             <div className="flex gap-2">
-              <button onClick={() => { setForm({ ...selectedEvent, project_id: selectedEvent.project_id || '' }); setModal(selectedEvent); }} className="text-xs text-slate-500 hover:text-red-600 px-2 py-1 border border-slate-200 rounded">Edit</button>
+              <button onClick={() => { setForm({ ...selectedEvent, project_id: selectedEvent.project_id || '' }); setModal(selectedEvent); }} className="text-xs text-zinc-500 hover:text-red-600 px-2 py-1 border border-zinc-800 rounded">Edit</button>
               <button onClick={() => deleteEvent(selectedEvent.id)} className="text-xs text-red-400 hover:text-red-600 px-2 py-1 border border-red-200 rounded">Delete</button>
-              <button onClick={() => setSelectedEvent(null)} className="text-slate-400 hover:text-slate-600">✕</button>
+              <button onClick={() => setSelectedEvent(null)} className="text-zinc-600 hover:text-zinc-400">✕</button>
             </div>
           </div>
           <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-            {selectedEvent.start_datetime && <div><p className="text-xs text-slate-400">Date/Time</p><p className="text-slate-700">{selectedEvent.start_datetime}</p></div>}
-            {selectedEvent.call_time && <div><p className="text-xs text-slate-400">Call Time</p><p className="text-slate-700">{selectedEvent.call_time}</p></div>}
-            {selectedEvent.location && <div><p className="text-xs text-slate-400">Location</p><p className="text-slate-700">{selectedEvent.location}</p></div>}
-            {selectedEvent.parking_notes && <div><p className="text-xs text-slate-400">Parking</p><p className="text-slate-700">{selectedEvent.parking_notes}</p></div>}
+            {selectedEvent.start_datetime && <div><p className="text-xs text-zinc-600">Date/Time</p><p className="text-zinc-200">{selectedEvent.start_datetime}</p></div>}
+            {selectedEvent.call_time && <div><p className="text-xs text-zinc-600">Call Time</p><p className="text-zinc-200">{selectedEvent.call_time}</p></div>}
+            {selectedEvent.location && <div><p className="text-xs text-zinc-600">Location</p><p className="text-zinc-200">{selectedEvent.location}</p></div>}
+            {selectedEvent.parking_notes && <div><p className="text-xs text-zinc-600">Parking</p><p className="text-zinc-200">{selectedEvent.parking_notes}</p></div>}
           </div>
-          {selectedEvent.address && <p className="text-sm text-slate-500 mt-2">📍 {selectedEvent.address}</p>}
-          {selectedEvent.general_notes && <p className="text-sm text-slate-600 mt-2 bg-slate-50 rounded p-2">{selectedEvent.general_notes}</p>}
+          {selectedEvent.address && <p className="text-sm text-zinc-500 mt-2">📍 {selectedEvent.address}</p>}
+          {selectedEvent.general_notes && <p className="text-sm text-zinc-400 mt-2 bg-zinc-950 rounded p-2">{selectedEvent.general_notes}</p>}
 
           {/* Crew on event */}
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-slate-700">Crew on this event</p>
+              <p className="text-sm font-medium text-zinc-200">Crew on this event</p>
               {unassignedCrew.length > 0 && (
                 <button onClick={() => { setCrewForm({ crew_id: '', personal_call_time: '' }); setCrewModal(true); }} className="text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">+ Add</button>
               )}
             </div>
-            {(selectedEvent.crew || []).length === 0 && <p className="text-xs text-slate-400">No crew assigned</p>}
+            {(selectedEvent.crew || []).length === 0 && <p className="text-xs text-zinc-600">No crew assigned</p>}
             <div className="flex flex-wrap gap-2">
               {(selectedEvent.crew || []).map(c => (
-                <div key={c.crew_id} className="flex items-center gap-1 bg-slate-100 rounded-full px-3 py-1">
-                  <span className="text-xs text-slate-700">{c.name}</span>
-                  {c.personal_call_time && <span className="text-xs text-slate-400">({c.personal_call_time})</span>}
-                  <button onClick={() => removeCrewFromEvent(c.crew_id)} className="text-slate-400 hover:text-red-500 ml-1 text-xs">✕</button>
+                <div key={c.crew_id} className="flex items-center gap-1 bg-zinc-800 rounded-full px-3 py-1">
+                  <span className="text-xs text-zinc-200">{c.name}</span>
+                  {c.personal_call_time && <span className="text-xs text-zinc-600">({c.personal_call_time})</span>}
+                  <button onClick={() => removeCrewFromEvent(c.crew_id)} className="text-zinc-600 hover:text-red-500 ml-1 text-xs">✕</button>
                 </div>
               ))}
             </div>
@@ -209,48 +209,48 @@ export default function Schedule() {
         <Modal title={modal === 'add' ? 'New Event' : 'Edit Event'} onClose={() => setModal(null)}>
           <form onSubmit={save} className="space-y-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Title *</label>
-              <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Title *</label>
+              <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Project</label>
-              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Project</label>
+              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">No project</option>
                 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Start *</label>
-                <input type="datetime-local" value={form.start_datetime} onChange={e => setForm(p => ({ ...p, start_datetime: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+                <label className="block text-xs font-medium text-zinc-400 mb-1">Start *</label>
+                <input type="datetime-local" value={form.start_datetime} onChange={e => setForm(p => ({ ...p, start_datetime: e.target.value }))} required className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">End</label>
-                <input type="datetime-local" value={form.end_datetime} onChange={e => setForm(p => ({ ...p, end_datetime: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+                <label className="block text-xs font-medium text-zinc-400 mb-1">End</label>
+                <input type="datetime-local" value={form.end_datetime} onChange={e => setForm(p => ({ ...p, end_datetime: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Call Time</label>
-              <input type="time" value={form.call_time} onChange={e => setForm(p => ({ ...p, call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Call Time</label>
+              <input type="time" value={form.call_time} onChange={e => setForm(p => ({ ...p, call_time: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Location</label>
-              <input type="text" value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Location</label>
+              <input type="text" value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Address</label>
-              <input type="text" value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Address</label>
+              <input type="text" value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Parking Notes</label>
-              <input type="text" value={form.parking_notes} onChange={e => setForm(p => ({ ...p, parking_notes: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Parking Notes</label>
+              <input type="text" value={form.parking_notes} onChange={e => setForm(p => ({ ...p, parking_notes: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">General Notes</label>
-              <textarea value={form.general_notes} onChange={e => setForm(p => ({ ...p, general_notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">General Notes</label>
+              <textarea value={form.general_notes} onChange={e => setForm(p => ({ ...p, general_notes: e.target.value }))} rows={2} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
-              <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+              <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm text-zinc-400 hover:bg-zinc-800 rounded-lg">Cancel</button>
               <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Save</button>
             </div>
           </form>
@@ -262,18 +262,18 @@ export default function Schedule() {
         <Modal title="Add Crew to Event" onClose={() => setCrewModal(false)}>
           <form onSubmit={addCrewToEvent} className="space-y-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Crew Member *</label>
-              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Crew Member *</label>
+              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Select…</option>
                 {unassignedCrew.map(c => <option key={c.id} value={c.id}>{c.name}{c.role ? ` (${c.role})` : ''}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Personal Call Time</label>
-              <input type="time" value={crewForm.personal_call_time} onChange={e => setCrewForm(p => ({ ...p, personal_call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <label className="block text-xs font-medium text-zinc-400 mb-1">Personal Call Time</label>
+              <input type="time" value={crewForm.personal_call_time} onChange={e => setCrewForm(p => ({ ...p, personal_call_time: e.target.value }))} className="w-full border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
-              <button type="button" onClick={() => setCrewModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+              <button type="button" onClick={() => setCrewModal(false)} className="px-4 py-2 text-sm text-zinc-400 hover:bg-zinc-800 rounded-lg">Cancel</button>
               <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Add + Send Email</button>
             </div>
           </form>

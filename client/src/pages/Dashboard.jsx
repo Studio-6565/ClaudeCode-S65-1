@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { adminApi } from '../api';
-import Badge from '../components/Badge';
 
-function StatCard({ label, value, sub, color = 'indigo' }) {
-  const colors = { indigo: 'bg-red-50 text-red-600', green: 'bg-green-50 text-green-600', amber: 'bg-amber-50 text-amber-600', red: 'bg-red-50 text-red-600' };
+function StatCard({ label, value, color, sub }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className={`text-3xl font-bold mt-1 ${colors[color].split(' ')[1]}`}>{value}</p>
-      {sub && <p className="text-xs text-slate-400 mt-1">{sub}</p>}
+    <div style={{ backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '20px', borderLeft: `3px solid ${color}` }}>
+      <p style={{ fontSize: '10px', color: '#555', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', margin: '0 0 8px' }}>{label}</p>
+      <p style={{ fontSize: '28px', fontWeight: 800, color, margin: 0 }}>{value}</p>
+      {sub && <p style={{ fontSize: '12px', color: '#555', margin: '4px 0 0' }}>{sub}</p>}
     </div>
   );
+}
+
+function StatusDot({ status }) {
+  const colors = { Lead: '#3b82f6', 'Pre-Production': '#8b5cf6', Active: '#22c55e', 'Post-Production': '#f59e0b', Completed: '#6b7280' };
+  return <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: colors[status] || '#555', marginRight: '8px', flexShrink: 0 }} />;
 }
 
 export default function Dashboard() {
@@ -20,8 +23,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function load() {
       const [projects, invoices, events, clients] = await Promise.all([
-        adminApi.get('/projects'),
-        adminApi.get('/invoices'),
+        adminApi.get('/projects'), adminApi.get('/invoices'),
         adminApi.get('/events', { params: { month: new Date().toISOString().slice(0, 7) } }),
         adminApi.get('/clients'),
       ]);
@@ -30,62 +32,68 @@ export default function Dashboard() {
     load().catch(console.error);
   }, []);
 
-  if (!data) return <div className="text-slate-400 text-sm">Loading…</div>;
+  if (!data) return <div style={{ color: '#555', padding: '40px', textAlign: 'center' }}>Loading…</div>;
 
   const activeProjects = data.projects.filter(p => ['Active', 'Pre-Production', 'Post-Production'].includes(p.status));
-  const outstandingInvoices = data.invoices.filter(i => ['Sent', 'Partial', 'Overdue'].includes(i.status));
-  const outstandingAmount = outstandingInvoices.reduce((s, i) => s + i.amount, 0);
+  const outstanding = data.invoices.filter(i => ['Sent', 'Partial', 'Overdue'].includes(i.status));
+  const outstandingAmt = outstanding.reduce((s, i) => s + i.amount, 0);
   const totalRevenue = data.projects.reduce((s, p) => s + (p.financials?.revenue || 0), 0);
-  const recentProjects = data.projects.slice(0, 5);
+  const totalNet = data.projects.reduce((s, p) => s + ((p.financials?.revenue||0) - (p.financials?.totalCost||0)), 0);
+
+  const card = { backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '14px' };
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Dashboard</h1>
-        <p className="text-sm text-slate-500 mt-1">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', margin: '0 0 4px' }}>Dashboard</h1>
+        <p style={{ fontSize: '13px', color: '#555', margin: 0 }}>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Clients" value={data.clients.length} color="indigo" />
-        <StatCard label="Active Projects" value={activeProjects.length} color="green" />
-        <StatCard label="Outstanding Invoices" value={outstandingInvoices.length} sub={`$${outstandingAmount.toLocaleString()}`} color="amber" />
-        <StatCard label="Events This Month" value={data.events.length} color="indigo" />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '12px' }}>
+        <StatCard label="Total Revenue" value={`$${totalRevenue.toLocaleString()}`} color="#fff" />
+        <StatCard label="Total Net" value={`$${totalNet.toLocaleString()}`} color="#22c55e" />
+        <StatCard label="Clients" value={data.clients.length} color="#3b82f6" />
+        <StatCard label="Active Projects" value={activeProjects.length} color="#f59e0b" />
+        <StatCard label="Outstanding" value={`$${outstandingAmt.toLocaleString()}`} color="#ED1C24" sub={`${outstanding.length} invoices`} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '16px' }}>
         {/* Recent Projects */}
-        <div className="bg-white rounded-xl border border-slate-200">
-          <div className="flex items-center justify-between p-5 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-800">Recent Projects</h2>
-            <Link to="/projects" className="text-xs text-red-600 hover:underline">View all</Link>
+        <div style={card}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #222' }}>
+            <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#fff', margin: 0 }}>Recent Projects</h2>
+            <Link to="/projects" style={{ fontSize: '12px', color: '#ED1C24', textDecoration: 'none' }}>View all</Link>
           </div>
-          <div className="divide-y divide-slate-100">
-            {recentProjects.length === 0 && <p className="p-5 text-sm text-slate-400">No projects yet</p>}
-            {recentProjects.map(p => (
-              <Link key={p.id} to={`/projects/${p.id}`} className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors">
-                <div>
-                  <p className="text-sm font-medium text-slate-800">{p.name}</p>
-                  <p className="text-xs text-slate-400">{p.client_name || 'No client'}</p>
+          <div>
+            {data.projects.length === 0 && <p style={{ padding: '20px', color: '#444', fontSize: '13px' }}>No projects yet</p>}
+            {data.projects.slice(0, 5).map(p => (
+              <Link key={p.id} to={`/projects/${p.id}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderBottom: '1px solid #1a1a1a', textDecoration: 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+                  <StatusDot status={p.status} />
+                  <div style={{ minWidth: 0 }}>
+                    <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</p>
+                    <p style={{ fontSize: '12px', color: '#555', margin: 0 }}>{p.client_name || 'No client'}</p>
+                  </div>
                 </div>
-                <Badge label={p.status} />
+                <span style={{ fontSize: '12px', color: '#888', flexShrink: 0, marginLeft: '8px' }}>{p.status}</span>
               </Link>
             ))}
           </div>
         </div>
 
-        {/* Upcoming Events */}
-        <div className="bg-white rounded-xl border border-slate-200">
-          <div className="flex items-center justify-between p-5 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-800">Events This Month</h2>
-            <Link to="/schedule" className="text-xs text-red-600 hover:underline">View all</Link>
+        {/* Events */}
+        <div style={card}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #222' }}>
+            <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#fff', margin: 0 }}>Events This Month</h2>
+            <Link to="/schedule" style={{ fontSize: '12px', color: '#ED1C24', textDecoration: 'none' }}>View all</Link>
           </div>
-          <div className="divide-y divide-slate-100">
-            {data.events.length === 0 && <p className="p-5 text-sm text-slate-400">No events this month</p>}
+          <div>
+            {data.events.length === 0 && <p style={{ padding: '20px', color: '#444', fontSize: '13px' }}>No events this month</p>}
             {data.events.slice(0, 5).map(ev => (
-              <div key={ev.id} className="p-4">
-                <p className="text-sm font-medium text-slate-800">{ev.title}</p>
-                <p className="text-xs text-slate-400">
-                  {new Date(ev.start_datetime).toLocaleDateString()} {ev.location ? `• ${ev.location}` : ''}
+              <div key={ev.id} style={{ padding: '12px 20px', borderBottom: '1px solid #1a1a1a' }}>
+                <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', margin: '0 0 2px' }}>{ev.title}</p>
+                <p style={{ fontSize: '12px', color: '#555', margin: 0 }}>
+                  {new Date(ev.start_datetime).toLocaleDateString()}{ev.location ? ` · ${ev.location}` : ''}
                 </p>
               </div>
             ))}
@@ -93,23 +101,20 @@ export default function Dashboard() {
         </div>
 
         {/* Outstanding Invoices */}
-        <div className="bg-white rounded-xl border border-slate-200 lg:col-span-2">
-          <div className="flex items-center justify-between p-5 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-800">Outstanding Invoices</h2>
-            <Link to="/invoices" className="text-xs text-red-600 hover:underline">View all</Link>
+        <div style={{ ...card, gridColumn: 'span 2' }} className="lg:col-span-2">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #222' }}>
+            <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#fff', margin: 0 }}>Outstanding Invoices</h2>
+            <Link to="/invoices" style={{ fontSize: '12px', color: '#ED1C24', textDecoration: 'none' }}>View all</Link>
           </div>
-          <div className="divide-y divide-slate-100">
-            {outstandingInvoices.length === 0 && <p className="p-5 text-sm text-slate-400">No outstanding invoices</p>}
-            {outstandingInvoices.slice(0, 5).map(inv => (
-              <div key={inv.id} className="flex items-center justify-between p-4">
+          <div>
+            {outstanding.length === 0 && <p style={{ padding: '20px', color: '#444', fontSize: '13px' }}>No outstanding invoices</p>}
+            {outstanding.slice(0, 5).map(inv => (
+              <div key={inv.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderBottom: '1px solid #1a1a1a' }}>
                 <div>
-                  <p className="text-sm font-medium text-slate-800">{inv.invoice_number || `INV-${inv.id}`}</p>
-                  <p className="text-xs text-slate-400">{inv.client_name} {inv.due_date ? `• Due ${inv.due_date}` : ''}</p>
+                  <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', margin: '0 0 2px' }}>{inv.invoice_number || `INV-${inv.id}`}</p>
+                  <p style={{ fontSize: '12px', color: '#555', margin: 0 }}>{inv.client_name}{inv.due_date ? ` · Due ${inv.due_date}` : ''}</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Badge label={inv.status} />
-                  <span className="text-sm font-semibold text-slate-700">${inv.amount.toLocaleString()}</span>
-                </div>
+                <p style={{ fontSize: '16px', fontWeight: 700, color: '#ED1C24', margin: 0 }}>${inv.amount.toLocaleString()}</p>
               </div>
             ))}
           </div>

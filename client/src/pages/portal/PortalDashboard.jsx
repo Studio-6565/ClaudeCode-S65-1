@@ -49,7 +49,7 @@ export default function PortalDashboard() {
         <div className="bg-white rounded-xl border border-slate-200">
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">My Projects</h2>
-            <Link to="/portal/projects" className="text-xs text-indigo-600 hover:underline">View all</Link>
+            <Link to="/portal/projects" className="text-xs text-red-600 hover:underline">View all</Link>
           </div>
           <div className="divide-y divide-slate-100">
             {projects.length === 0 && <p className="p-5 text-sm text-slate-400">No projects assigned</p>}
@@ -69,7 +69,7 @@ export default function PortalDashboard() {
         <div className="bg-white rounded-xl border border-slate-200">
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Upcoming Events</h2>
-            <Link to="/portal/schedule" className="text-xs text-indigo-600 hover:underline">View all</Link>
+            <Link to="/portal/schedule" className="text-xs text-red-600 hover:underline">View all</Link>
           </div>
           <div className="divide-y divide-slate-100">
             {upcoming.length === 0 && <p className="p-5 text-sm text-slate-400">No upcoming events</p>}
@@ -81,7 +81,7 @@ export default function PortalDashboard() {
                   {ev.personal_call_time ? ` • Call: ${ev.personal_call_time}` : ev.call_time ? ` • Call: ${ev.call_time}` : ''}
                   {ev.location ? ` • ${ev.location}` : ''}
                 </p>
-                {ev.project_name && <p className="text-xs text-indigo-500 mt-0.5">{ev.project_name}</p>}
+                {ev.project_name && <p className="text-xs text-red-500 mt-0.5">{ev.project_name}</p>}
               </div>
             ))}
           </div>

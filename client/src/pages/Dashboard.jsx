@@ -4,7 +4,7 @@ import { adminApi } from '../api';
 import Badge from '../components/Badge';
 
 function StatCard({ label, value, sub, color = 'indigo' }) {
-  const colors = { indigo: 'bg-indigo-50 text-indigo-600', green: 'bg-green-50 text-green-600', amber: 'bg-amber-50 text-amber-600', red: 'bg-red-50 text-red-600' };
+  const colors = { indigo: 'bg-red-50 text-red-600', green: 'bg-green-50 text-green-600', amber: 'bg-amber-50 text-amber-600', red: 'bg-red-50 text-red-600' };
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-5">
       <p className="text-sm text-slate-500">{label}</p>
@@ -57,7 +57,7 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl border border-slate-200">
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Recent Projects</h2>
-            <Link to="/projects" className="text-xs text-indigo-600 hover:underline">View all</Link>
+            <Link to="/projects" className="text-xs text-red-600 hover:underline">View all</Link>
           </div>
           <div className="divide-y divide-slate-100">
             {recentProjects.length === 0 && <p className="p-5 text-sm text-slate-400">No projects yet</p>}
@@ -77,7 +77,7 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl border border-slate-200">
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Events This Month</h2>
-            <Link to="/schedule" className="text-xs text-indigo-600 hover:underline">View all</Link>
+            <Link to="/schedule" className="text-xs text-red-600 hover:underline">View all</Link>
           </div>
           <div className="divide-y divide-slate-100">
             {data.events.length === 0 && <p className="p-5 text-sm text-slate-400">No events this month</p>}
@@ -96,7 +96,7 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl border border-slate-200 lg:col-span-2">
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Outstanding Invoices</h2>
-            <Link to="/invoices" className="text-xs text-indigo-600 hover:underline">View all</Link>
+            <Link to="/invoices" className="text-xs text-red-600 hover:underline">View all</Link>
           </div>
           <div className="divide-y divide-slate-100">
             {outstandingInvoices.length === 0 && <p className="p-5 text-sm text-slate-400">No outstanding invoices</p>}

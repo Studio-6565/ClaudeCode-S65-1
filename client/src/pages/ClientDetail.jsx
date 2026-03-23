@@ -27,7 +27,7 @@ export default function ClientDetail() {
         <h1 className="text-2xl font-bold text-slate-800">{client.name}</h1>
         {client.company && <p className="text-slate-500 mt-1">{client.company}</p>}
         <div className="flex flex-wrap gap-4 mt-4 text-sm text-slate-600">
-          {client.email && <a href={`mailto:${client.email}`} className="text-indigo-600 hover:underline">{client.email}</a>}
+          {client.email && <a href={`mailto:${client.email}`} className="text-red-600 hover:underline">{client.email}</a>}
           {client.phone && <span>{client.phone}</span>}
           {client.tags && <span className="text-slate-400">{client.tags}</span>}
         </div>

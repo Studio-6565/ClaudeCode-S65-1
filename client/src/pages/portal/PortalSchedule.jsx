@@ -26,7 +26,7 @@ export default function PortalSchedule() {
                 <div>
                   <h2 className="font-semibold text-slate-800">{ev.title}</h2>
                   {ev.project_name && (
-                    <Link to={`/portal/projects/${ev.project_id}`} className="text-sm text-indigo-500 hover:underline">
+                    <Link to={`/portal/projects/${ev.project_id}`} className="text-sm text-red-500 hover:underline">
                       {ev.project_name}
                     </Link>
                   )}
@@ -34,7 +34,7 @@ export default function PortalSchedule() {
                 {(ev.personal_call_time || ev.call_time) && (
                   <div className="text-right">
                     <p className="text-xs text-slate-400">Your call time</p>
-                    <p className="text-lg font-bold text-indigo-600">{ev.personal_call_time || ev.call_time}</p>
+                    <p className="text-lg font-bold text-red-600">{ev.personal_call_time || ev.call_time}</p>
                   </div>
                 )}
               </div>

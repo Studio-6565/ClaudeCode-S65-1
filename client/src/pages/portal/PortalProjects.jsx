@@ -33,7 +33,7 @@ export default function PortalProjects() {
                   <h2 className="font-semibold text-slate-800">{p.name}</h2>
                   {p.is_shoot && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">📍 Shoot</span>}
                 </div>
-                <p className="text-sm text-indigo-600 mt-0.5">{p.role_on_project || 'Crew'}</p>
+                <p className="text-sm text-red-600 mt-0.5">{p.role_on_project || 'Crew'}</p>
                 {(p.start_date || p.end_date) && (
                   <p className="text-xs text-slate-400 mt-1">
                     {p.start_date}{p.end_date ? ` → ${p.end_date}` : ''}

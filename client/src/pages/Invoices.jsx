@@ -75,12 +75,12 @@ export default function Invoices() {
           <h1 className="text-2xl font-bold text-slate-800">Invoices</h1>
           {totalOutstanding > 0 && <p className="text-sm text-amber-600 mt-0.5">${totalOutstanding.toLocaleString()} outstanding</p>}
         </div>
-        <button onClick={openAdd} className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">
+        <button onClick={openAdd} className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700">
           + New Invoice
         </button>
       </div>
 
-      <select value={filter} onChange={e => setFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <select value={filter} onChange={e => setFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
         <option value="">All statuses</option>
         {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
       </select>
@@ -98,7 +98,7 @@ export default function Invoices() {
             {invoices.length === 0 && <tr><td colSpan={8} className="px-4 py-8 text-center text-slate-400">No invoices yet</td></tr>}
             {invoices.map(inv => (
               <tr key={inv.id} className="hover:bg-slate-50 cursor-pointer" onClick={() => loadDetail(inv.id)}>
-                <td className="px-4 py-3 font-medium text-indigo-600">{inv.invoice_number || `INV-${inv.id}`}</td>
+                <td className="px-4 py-3 font-medium text-red-600">{inv.invoice_number || `INV-${inv.id}`}</td>
                 <td className="px-4 py-3 text-slate-600">{inv.client_name || '—'}</td>
                 <td className="px-4 py-3 text-slate-600">{inv.project_name || '—'}</td>
                 <td className="px-4 py-3 font-medium text-slate-800">${inv.amount.toLocaleString()}</td>
@@ -106,7 +106,7 @@ export default function Invoices() {
                 <td className="px-4 py-3 text-slate-500">{inv.due_date || '—'}</td>
                 <td className="px-4 py-3"><Badge label={inv.status} /></td>
                 <td className="px-4 py-3 text-right space-x-2" onClick={e => e.stopPropagation()}>
-                  <button onClick={() => openEdit(inv)} className="text-xs text-slate-500 hover:text-indigo-600">Edit</button>
+                  <button onClick={() => openEdit(inv)} className="text-xs text-slate-500 hover:text-red-600">Edit</button>
                   <button onClick={() => del(inv.id)} className="text-xs text-red-400 hover:text-red-600">Delete</button>
                 </td>
               </tr>
@@ -148,9 +148,9 @@ export default function Invoices() {
 
             {detail.balance > 0 && (
               <form onSubmit={addPayment} className="mt-3 flex gap-2 flex-wrap">
-                <input type="number" min="0.01" step="0.01" placeholder="Amount" value={payForm.amount} onChange={e => setPayForm(p => ({ ...p, amount: e.target.value }))} required className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-28" />
-                <input type="date" value={payForm.paid_date} onChange={e => setPayForm(p => ({ ...p, paid_date: e.target.value }))} required className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                <input type="text" placeholder="Method (e.g. Bank transfer)" value={payForm.method} onChange={e => setPayForm(p => ({ ...p, method: e.target.value }))} className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1" />
+                <input type="number" min="0.01" step="0.01" placeholder="Amount" value={payForm.amount} onChange={e => setPayForm(p => ({ ...p, amount: e.target.value }))} required className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-28" />
+                <input type="date" value={payForm.paid_date} onChange={e => setPayForm(p => ({ ...p, paid_date: e.target.value }))} required className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+                <input type="text" placeholder="Method (e.g. Bank transfer)" value={payForm.method} onChange={e => setPayForm(p => ({ ...p, method: e.target.value }))} className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 flex-1" />
                 <button type="submit" className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700">Log Payment</button>
               </form>
             )}
@@ -166,51 +166,51 @@ export default function Invoices() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Invoice #</label>
-                <input type="text" value={form.invoice_number} onChange={e => setForm(p => ({ ...p, invoice_number: e.target.value }))} placeholder="INV-001" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="text" value={form.invoice_number} onChange={e => setForm(p => ({ ...p, invoice_number: e.target.value }))} placeholder="INV-001" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Amount ($) *</label>
-                <input type="number" min="0" step="0.01" value={form.amount} onChange={e => setForm(p => ({ ...p, amount: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="number" min="0" step="0.01" value={form.amount} onChange={e => setForm(p => ({ ...p, amount: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Client</label>
-              <select value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">No client</option>
                 {clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Project</label>
-              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">No project</option>
                 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
-              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Issued Date</label>
-                <input type="date" value={form.issued_date} onChange={e => setForm(p => ({ ...p, issued_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="date" value={form.issued_date} onChange={e => setForm(p => ({ ...p, issued_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Due Date</label>
-                <input type="date" value={form.due_date} onChange={e => setForm(p => ({ ...p, due_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="date" value={form.due_date} onChange={e => setForm(p => ({ ...p, due_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Notes</label>
-              <textarea value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <textarea value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <p className="text-xs text-slate-400">Changing status to "Sent" will automatically email the client.</p>
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" disabled={saving} className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50">
+              <button type="submit" disabled={saving} className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50">
                 {saving ? 'Saving…' : 'Save'}
               </button>
             </div>

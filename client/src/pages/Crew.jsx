@@ -52,7 +52,7 @@ export default function Crew() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-800">Crew</h1>
-        <button onClick={openAdd} className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors">
+        <button onClick={openAdd} className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
           + Add Crew
         </button>
       </div>
@@ -62,7 +62,7 @@ export default function Crew() {
         placeholder="Search crew…"
         value={search}
         onChange={e => setSearch(e.target.value)}
-        className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:ring-2 focus:ring-red-500"
       />
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -81,7 +81,7 @@ export default function Crew() {
             {crew.map(m => (
               <tr key={m.id} className="hover:bg-slate-50">
                 <td className="px-4 py-3">
-                  <Link to={`/crew/${m.id}`} className="font-medium text-indigo-600 hover:underline">{m.name}</Link>
+                  <Link to={`/crew/${m.id}`} className="font-medium text-red-600 hover:underline">{m.name}</Link>
                 </td>
                 <td className="px-4 py-3 text-slate-600">{m.role || '—'}</td>
                 <td className="px-4 py-3 text-slate-600">{m.email || '—'}</td>
@@ -93,7 +93,7 @@ export default function Crew() {
                 </td>
                 <td className="px-4 py-3 text-slate-500 text-xs max-w-xs truncate">{m.skills || '—'}</td>
                 <td className="px-4 py-3 text-right space-x-2">
-                  <button onClick={() => openEdit(m)} className="text-xs text-slate-500 hover:text-indigo-600">Edit</button>
+                  <button onClick={() => openEdit(m)} className="text-xs text-slate-500 hover:text-red-600">Edit</button>
                   <button onClick={() => del(m.id)} className="text-xs text-red-400 hover:text-red-600">Delete</button>
                 </td>
               </tr>
@@ -120,7 +120,7 @@ export default function Crew() {
                   value={form[f.key] || ''}
                   onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
                   required={f.required}
-                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
             ))}
@@ -130,13 +130,13 @@ export default function Crew() {
                 value={form.bio || ''}
                 onChange={e => setForm(p => ({ ...p, bio: e.target.value }))}
                 rows={3}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </div>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" disabled={saving} className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50">
+              <button type="submit" disabled={saving} className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50">
                 {saving ? 'Saving…' : 'Save'}
               </button>
             </div>

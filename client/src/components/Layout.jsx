@@ -22,10 +22,14 @@ export default function Layout({ children }) {
   return (
     <div className="flex h-screen bg-slate-50">
       {/* Sidebar */}
-      <aside className="w-56 bg-slate-900 text-white flex flex-col shrink-0">
-        <div className="p-5 border-b border-slate-700">
-          <h1 className="text-lg font-bold text-white">Studio</h1>
-          <p className="text-xs text-slate-400 mt-0.5">{adminUser?.name}</p>
+      <aside className="w-56 flex flex-col shrink-0" style={{ backgroundColor: '#000' }}>
+        <div className="p-5 border-b border-zinc-800">
+          {/* Studio 65 logo mark */}
+          <div className="flex items-baseline gap-0.5">
+            <span className="text-white font-black tracking-tight" style={{ fontSize: '1.35rem', letterSpacing: '-0.03em' }}>studio</span>
+            <span className="font-black" style={{ fontSize: '0.85rem', color: '#ED1C24', WebkitTextStroke: '0.5px #ED1C24', letterSpacing: '-0.01em' }}>65</span>
+          </div>
+          <p className="text-xs text-zinc-500 mt-0.5">{adminUser?.name}</p>
         </div>
         <nav className="flex-1 p-3 space-y-0.5">
           {navItems.map(item => (
@@ -35,19 +39,20 @@ export default function Layout({ children }) {
               end={item.to === '/'}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
                 }`
               }
+              style={({ isActive }) => isActive ? { backgroundColor: '#ED1C24' } : {}}
             >
               <span className="text-base">{item.icon}</span>
               {item.label}
             </NavLink>
           ))}
         </nav>
-        <div className="p-3 border-t border-slate-700">
+        <div className="p-3 border-t border-zinc-800">
           <button
             onClick={handleLogout}
-            className="w-full text-left px-3 py-2 text-sm text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="w-full text-left px-3 py-2 text-sm text-zinc-500 hover:text-white rounded-lg hover:bg-zinc-900 transition-colors"
           >
             Sign out
           </button>

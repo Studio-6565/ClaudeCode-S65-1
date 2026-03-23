@@ -82,7 +82,7 @@ export default function ProjectDetail() {
             </div>
             {project.client_name && (
               <p className="text-slate-500 mt-1">
-                Client: <Link to={`/clients/${project.client_id}`} className="text-indigo-600 hover:underline">{project.client_name}</Link>
+                Client: <Link to={`/clients/${project.client_id}`} className="text-red-600 hover:underline">{project.client_name}</Link>
               </p>
             )}
           </div>
@@ -129,7 +129,7 @@ export default function ProjectDetail() {
           <div className="flex items-center justify-between p-5 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Crew Roster</h2>
             {unassigned.length > 0 && (
-              <button onClick={() => setCrewModal(true)} className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700">+ Add Crew</button>
+              <button onClick={() => setCrewModal(true)} className="text-xs bg-red-600 text-white px-3 py-1.5 rounded-lg hover:bg-red-700">+ Add Crew</button>
             )}
           </div>
           <div className="divide-y divide-slate-100">
@@ -140,7 +140,7 @@ export default function ProjectDetail() {
               return (
                 <div key={c.crew_id} className="flex items-center justify-between px-5 py-3">
                   <div>
-                    <Link to={`/crew/${c.crew_id}`} className="text-sm font-medium text-indigo-600 hover:underline">{c.name}</Link>
+                    <Link to={`/crew/${c.crew_id}`} className="text-sm font-medium text-red-600 hover:underline">{c.name}</Link>
                     <p className="text-xs text-slate-500">{c.role_on_project || c.role || '—'} {c.day_rate > 0 ? `• $${c.day_rate}/day × ${c.days_worked}d` : ''}</p>
                   </div>
                   <div className="flex items-center gap-3">
@@ -159,14 +159,14 @@ export default function ProjectDetail() {
       <div className="bg-white rounded-xl border border-slate-200">
         <div className="flex items-center justify-between p-5 border-b border-slate-100">
           <h2 className="font-semibold text-slate-800">Deliverables</h2>
-          <button onClick={() => { setDelivForm({ title: '', status: 'Pending', due_date: '', notes: '' }); setDelivModal('add'); }} className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700">+ Add</button>
+          <button onClick={() => { setDelivForm({ title: '', status: 'Pending', due_date: '', notes: '' }); setDelivModal('add'); }} className="text-xs bg-red-600 text-white px-3 py-1.5 rounded-lg hover:bg-red-700">+ Add</button>
         </div>
         <div className="divide-y divide-slate-100">
           {project.deliverables.length === 0 && <p className="p-5 text-sm text-slate-400">No deliverables</p>}
           {project.deliverables.map(d => (
             <div key={d.id} className="flex items-center justify-between px-5 py-3">
               <div className="flex items-center gap-3">
-                <button onClick={() => toggleDeliverable(d)} className="w-5 h-5 rounded border-2 border-slate-300 flex items-center justify-center hover:border-indigo-500">
+                <button onClick={() => toggleDeliverable(d)} className="w-5 h-5 rounded border-2 border-slate-300 flex items-center justify-center hover:border-red-500">
                   {d.status === 'Done' && <span className="text-green-500 text-xs">✓</span>}
                   {d.status === 'In Progress' && <span className="text-yellow-500 text-xs">●</span>}
                 </button>
@@ -177,7 +177,7 @@ export default function ProjectDetail() {
               </div>
               <div className="flex items-center gap-2">
                 <Badge label={d.status} />
-                <button onClick={() => { setDelivForm({ ...d }); setDelivModal(d); }} className="text-xs text-slate-400 hover:text-indigo-600">Edit</button>
+                <button onClick={() => { setDelivForm({ ...d }); setDelivModal(d); }} className="text-xs text-slate-400 hover:text-red-600">Edit</button>
                 <button onClick={() => deleteDeliverable(d.id)} className="text-xs text-red-400 hover:text-red-600">✕</button>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function ProjectDetail() {
       <div className="bg-white rounded-xl border border-slate-200">
         <div className="flex items-center justify-between p-5 border-b border-slate-100">
           <h2 className="font-semibold text-slate-800">Events / Shoots</h2>
-          <Link to="/schedule" className="text-xs text-indigo-600 hover:underline">Manage in Schedule</Link>
+          <Link to="/schedule" className="text-xs text-red-600 hover:underline">Manage in Schedule</Link>
         </div>
         <div className="divide-y divide-slate-100">
           {project.events.length === 0 && <p className="p-5 text-sm text-slate-400">No events linked</p>}
@@ -208,7 +208,7 @@ export default function ProjectDetail() {
       <div className="bg-white rounded-xl border border-slate-200">
         <div className="flex items-center justify-between p-5 border-b border-slate-100">
           <h2 className="font-semibold text-slate-800">Invoices</h2>
-          <Link to="/invoices" className="text-xs text-indigo-600 hover:underline">Manage Invoices</Link>
+          <Link to="/invoices" className="text-xs text-red-600 hover:underline">Manage Invoices</Link>
         </div>
         <div className="divide-y divide-slate-100">
           {project.invoices.length === 0 && <p className="p-5 text-sm text-slate-400">No invoices</p>}
@@ -233,29 +233,29 @@ export default function ProjectDetail() {
           <form onSubmit={assignCrew} className="space-y-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Crew Member *</label>
-              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Select crew…</option>
                 {unassigned.map(c => <option key={c.id} value={c.id}>{c.name} {c.role ? `(${c.role})` : ''}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Role on Project</label>
-              <input type="text" value={crewForm.role_on_project} onChange={e => setCrewForm(p => ({ ...p, role_on_project: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={crewForm.role_on_project} onChange={e => setCrewForm(p => ({ ...p, role_on_project: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Day Rate ($)</label>
-                <input type="number" min="0" step="0.01" value={crewForm.day_rate} onChange={e => setCrewForm(p => ({ ...p, day_rate: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="number" min="0" step="0.01" value={crewForm.day_rate} onChange={e => setCrewForm(p => ({ ...p, day_rate: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Days</label>
-                <input type="number" min="0" step="0.5" value={crewForm.days_worked} onChange={e => setCrewForm(p => ({ ...p, days_worked: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="number" min="0" step="0.5" value={crewForm.days_worked} onChange={e => setCrewForm(p => ({ ...p, days_worked: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <p className="text-xs text-slate-400">An email will be sent to the crew member to confirm.</p>
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setCrewModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Assign + Send Email</button>
+              <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Assign + Send Email</button>
             </div>
           </form>
         </Modal>
@@ -267,27 +267,27 @@ export default function ProjectDetail() {
           <form onSubmit={saveDeliverable} className="space-y-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Title *</label>
-              <input type="text" value={delivForm.title} onChange={e => setDelivForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={delivForm.title} onChange={e => setDelivForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
-                <select value={delivForm.status} onChange={e => setDelivForm(p => ({ ...p, status: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <select value={delivForm.status} onChange={e => setDelivForm(p => ({ ...p, status: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                   {DELIVERABLE_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Due Date</label>
-                <input type="date" value={delivForm.due_date} onChange={e => setDelivForm(p => ({ ...p, due_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="date" value={delivForm.due_date} onChange={e => setDelivForm(p => ({ ...p, due_date: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Notes</label>
-              <textarea value={delivForm.notes} onChange={e => setDelivForm(p => ({ ...p, notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <textarea value={delivForm.notes} onChange={e => setDelivForm(p => ({ ...p, notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setDelivModal(null)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Save</button>
+              <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Save</button>
             </div>
           </form>
         </Modal>

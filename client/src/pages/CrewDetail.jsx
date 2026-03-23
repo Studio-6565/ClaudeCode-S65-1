@@ -43,9 +43,9 @@ export default function CrewDetail() {
 
       <div className="bg-white rounded-xl border border-slate-200 p-6">
         <h1 className="text-2xl font-bold text-slate-800">{member.name}</h1>
-        {member.role && <p className="text-indigo-600 font-medium mt-1">{member.role}</p>}
+        {member.role && <p className="text-red-600 font-medium mt-1">{member.role}</p>}
         <div className="flex flex-wrap gap-4 mt-3 text-sm text-slate-600">
-          {member.email && <a href={`mailto:${member.email}`} className="text-indigo-600 hover:underline">{member.email}</a>}
+          {member.email && <a href={`mailto:${member.email}`} className="text-red-600 hover:underline">{member.email}</a>}
           {member.phone && <span>{member.phone}</span>}
         </div>
         {member.skills && <p className="mt-2 text-sm text-slate-500"><strong>Skills:</strong> {member.skills}</p>}
@@ -53,7 +53,7 @@ export default function CrewDetail() {
         {member.portal_code && (
           <div className="mt-3 flex items-center gap-2">
             <span className="text-xs text-slate-500">Portal code:</span>
-            <code className="text-sm bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-mono">{member.portal_code}</code>
+            <code className="text-sm bg-red-50 text-red-700 px-2 py-0.5 rounded font-mono">{member.portal_code}</code>
           </div>
         )}
       </div>
@@ -90,16 +90,16 @@ export default function CrewDetail() {
                 type="date"
                 value={newDate}
                 onChange={e => setNewDate(e.target.value)}
-                className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
               <input
                 type="text"
                 placeholder="Note (optional)"
                 value={dateNote}
                 onChange={e => setDateNote(e.target.value)}
-                className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
-              <button onClick={addUnavailable} className="px-3 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700">Add</button>
+              <button onClick={addUnavailable} className="px-3 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700">Add</button>
             </div>
             <div className="space-y-1 max-h-48 overflow-y-auto">
               {member.unavailability.length === 0 && <p className="text-sm text-slate-400">No dates blocked</p>}

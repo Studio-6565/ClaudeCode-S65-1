@@ -104,7 +104,7 @@ export default function Schedule() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-800">Schedule</h1>
-        <button onClick={() => { setForm(EMPTY); setModal('add'); }} className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">
+        <button onClick={() => { setForm(EMPTY); setModal('add'); }} className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700">
           + New Event
         </button>
       </div>
@@ -139,7 +139,7 @@ export default function Schedule() {
                 onClick={() => openAdd(day)}
                 className="min-h-20 border-r border-b border-slate-100 p-1.5 cursor-pointer hover:bg-slate-50 transition-colors"
               >
-                <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-indigo-600 text-white' : 'text-slate-600'}`}>
+                <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-red-600 text-white' : 'text-slate-600'}`}>
                   {day}
                 </div>
                 <div className="space-y-0.5">
@@ -147,7 +147,7 @@ export default function Schedule() {
                     <div
                       key={ev.id}
                       onClick={e => { e.stopPropagation(); loadEventDetail(ev.id); }}
-                      className="text-xs bg-indigo-100 text-indigo-700 rounded px-1.5 py-0.5 truncate cursor-pointer hover:bg-indigo-200"
+                      className="text-xs bg-red-100 text-red-700 rounded px-1.5 py-0.5 truncate cursor-pointer hover:bg-red-200"
                     >
                       {ev.call_time ? `${ev.call_time} ` : ''}{ev.title}
                     </div>
@@ -165,10 +165,10 @@ export default function Schedule() {
           <div className="flex items-start justify-between">
             <div>
               <h2 className="font-semibold text-slate-800 text-lg">{selectedEvent.title}</h2>
-              {selectedEvent.project_name && <p className="text-sm text-indigo-600">{selectedEvent.project_name}</p>}
+              {selectedEvent.project_name && <p className="text-sm text-red-600">{selectedEvent.project_name}</p>}
             </div>
             <div className="flex gap-2">
-              <button onClick={() => { setForm({ ...selectedEvent, project_id: selectedEvent.project_id || '' }); setModal(selectedEvent); }} className="text-xs text-slate-500 hover:text-indigo-600 px-2 py-1 border border-slate-200 rounded">Edit</button>
+              <button onClick={() => { setForm({ ...selectedEvent, project_id: selectedEvent.project_id || '' }); setModal(selectedEvent); }} className="text-xs text-slate-500 hover:text-red-600 px-2 py-1 border border-slate-200 rounded">Edit</button>
               <button onClick={() => deleteEvent(selectedEvent.id)} className="text-xs text-red-400 hover:text-red-600 px-2 py-1 border border-red-200 rounded">Delete</button>
               <button onClick={() => setSelectedEvent(null)} className="text-slate-400 hover:text-slate-600">✕</button>
             </div>
@@ -187,7 +187,7 @@ export default function Schedule() {
             <div className="flex items-center justify-between mb-2">
               <p className="text-sm font-medium text-slate-700">Crew on this event</p>
               {unassignedCrew.length > 0 && (
-                <button onClick={() => { setCrewForm({ crew_id: '', personal_call_time: '' }); setCrewModal(true); }} className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700">+ Add</button>
+                <button onClick={() => { setCrewForm({ crew_id: '', personal_call_time: '' }); setCrewModal(true); }} className="text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">+ Add</button>
               )}
             </div>
             {(selectedEvent.crew || []).length === 0 && <p className="text-xs text-slate-400">No crew assigned</p>}
@@ -210,11 +210,11 @@ export default function Schedule() {
           <form onSubmit={save} className="space-y-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Title *</label>
-              <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Project</label>
-              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={form.project_id} onChange={e => setForm(p => ({ ...p, project_id: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">No project</option>
                 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
@@ -222,36 +222,36 @@ export default function Schedule() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Start *</label>
-                <input type="datetime-local" value={form.start_datetime} onChange={e => setForm(p => ({ ...p, start_datetime: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="datetime-local" value={form.start_datetime} onChange={e => setForm(p => ({ ...p, start_datetime: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">End</label>
-                <input type="datetime-local" value={form.end_datetime} onChange={e => setForm(p => ({ ...p, end_datetime: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                <input type="datetime-local" value={form.end_datetime} onChange={e => setForm(p => ({ ...p, end_datetime: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Call Time</label>
-              <input type="time" value={form.call_time} onChange={e => setForm(p => ({ ...p, call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="time" value={form.call_time} onChange={e => setForm(p => ({ ...p, call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Location</label>
-              <input type="text" value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Address</label>
-              <input type="text" value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Parking Notes</label>
-              <input type="text" value={form.parking_notes} onChange={e => setForm(p => ({ ...p, parking_notes: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" value={form.parking_notes} onChange={e => setForm(p => ({ ...p, parking_notes: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">General Notes</label>
-              <textarea value={form.general_notes} onChange={e => setForm(p => ({ ...p, general_notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <textarea value={form.general_notes} onChange={e => setForm(p => ({ ...p, general_notes: e.target.value }))} rows={2} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Save</button>
+              <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Save</button>
             </div>
           </form>
         </Modal>
@@ -263,18 +263,18 @@ export default function Schedule() {
           <form onSubmit={addCrewToEvent} className="space-y-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Crew Member *</label>
-              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select value={crewForm.crew_id} onChange={e => setCrewForm(p => ({ ...p, crew_id: e.target.value }))} required className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Select…</option>
                 {unassignedCrew.map(c => <option key={c.id} value={c.id}>{c.name}{c.role ? ` (${c.role})` : ''}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Personal Call Time</label>
-              <input type="time" value={crewForm.personal_call_time} onChange={e => setCrewForm(p => ({ ...p, personal_call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="time" value={crewForm.personal_call_time} onChange={e => setCrewForm(p => ({ ...p, personal_call_time: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button type="button" onClick={() => setCrewModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
-              <button type="submit" className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Add + Send Email</button>
+              <button type="submit" className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Add + Send Email</button>
             </div>
           </form>
         </Modal>

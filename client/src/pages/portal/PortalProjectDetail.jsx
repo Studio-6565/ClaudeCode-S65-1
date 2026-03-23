@@ -45,7 +45,7 @@ export default function PortalProjectDetail() {
               <h1 className="text-2xl font-bold text-slate-800">{project.name}</h1>
               {project.is_shoot && <span className="bg-amber-100 text-amber-700 text-sm px-2 py-0.5 rounded-full">📍 Shoot</span>}
             </div>
-            <p className="text-indigo-600 font-medium mt-1">{project.myRole || 'Crew'}</p>
+            <p className="text-red-600 font-medium mt-1">{project.myRole || 'Crew'}</p>
             {project.client_name && <p className="text-sm text-slate-500 mt-1">Client: {project.client_name}</p>}
           </div>
           <Badge label={project.status} />
@@ -96,7 +96,7 @@ export default function PortalProjectDetail() {
                 <div className="flex items-center justify-between">
                   <p className="font-medium text-slate-800">{ev.title}</p>
                   {(ev.personal_call_time || ev.call_time) && (
-                    <span className="text-sm font-semibold text-indigo-600">Call: {ev.personal_call_time || ev.call_time}</span>
+                    <span className="text-sm font-semibold text-red-600">Call: {ev.personal_call_time || ev.call_time}</span>
                   )}
                 </div>
                 <p className="text-sm text-slate-500 mt-1">{ev.start_datetime}</p>

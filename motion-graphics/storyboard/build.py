@@ -63,7 +63,7 @@ beat('Think about how different that is from a normal commercial. If you see a c
      [('real', 'A5 talking head'), ('ai', 'Generic sports-drink ad B-roll. Don’t generate a real brand’s logo.')],
      [], ['09'], 'Keep it unbranded. Say “Gatorade” in VO only.')
 beat('Influencer advertising can be way more subtle. You could be watching someone’s morning routine. They show their coffee, their outfit, their skincare, and somewhere in the middle they go: “By the way, I’ve actually been using this serum for the past few weeks.”',
-     [('ai', 'Beauty creator morning routine: coffee, outfit, skincare'), ('real', 'Or reuse A3')],
+     [('ai', 'Beauty creator morning routine: coffee, outfit, skincare'), ('real', 'Or reuse the casual YouTube version')],
      [], ['Q2'], 'Play the serum line as sync sound from the creator if you have it.')
 beat('Now the ad is sitting inside normal content. It doesn’t interrupt the video. It becomes part of the video. And that changes how we experience it.',
      [('mg', 'Full-screen graphic')], ['10'], ['B15'], 'The playhead scrubs during the first line. The headline lands on “becomes part of the video”.', core=True)
@@ -96,7 +96,7 @@ beat('Then one day they show you a serum and say: “This is honestly what chang
 beat('That statement has history behind it. You’re not just evaluating the serum. You’re evaluating it through everything you already know about that person.',
      [('mg', 'Full-screen graphic')], ['17'], [], 'The timeline recaps two years in 11 seconds and ends on “history”.', core=True)
 beat('That makes the recommendation more powerful. The same product shown in a normal commercial doesn’t have that relationship attached to it. You’re not just buying the serum. You’re buying the story attached to the serum.',
-     [('real', 'Callback: reuse the A4 commercial footage from the opening')], [], [], 'Echoing the opening ties the argument together.')
+     [('real', 'Callback: reuse the fake commercial from the opening')], [], [], 'Echoing the opening ties the argument together.')
 
 chapter('Fitness influencers', 'C07')
 beat('The same thing happens in fitness. Maybe you follow someone because you like their workouts. You’ve watched their transformation. You trust some of their advice. Then eventually they recommend a supplement.',
@@ -239,3 +239,57 @@ if not unused:
 open(os.path.join(os.path.dirname(__file__), 'storyboard.html'), 'w').write(page)
 print('core', cpct, len(core_full), len(core_over)); print('runtime', tc(TOTAL), 'beats', sum(len(c['beats']) for c in CH), 'hero', len(hero), 'core', len(core_ids), 'alts', len(alts), 'unused', len(unused), pct)
 print('unused:', unused)
+
+# ── Simple edit sheet: film list, AI list, script with files ────────────────
+import json
+FILES = json.load(open(os.path.join(os.path.dirname(__file__), 'files.json')))
+
+FILM = [
+    ('The fake commercial', 'You holding the serum like a real ad: polished beauty lighting, clean background, slow product close-ups (hands, bottle turning). End the take by pushing the bottle right into the lens until it fills the frame.'),
+    ('The casual YouTube version', 'Same product, same outfit, same hair. Softer light, relaxed, like a creator filming at home. Say: “I’ve been using this every morning and I genuinely love it.”'),
+    ('Talking head', 'You to camera, reading every line marked “Film: talking head” in the script below. Same setup for all of them.'),
+    ('Split-screen pair', 'Nothing new to shoot. The split screen reuses the commercial and the YouTube version side by side.'),
+    ('Monitor push-in', 'Slowly push the camera toward a monitor or phone screen until the screen fills the frame. Used for the transition into the YouTube window.'),
+    ('Reference photos', 'Photos of your outfit, hair, the bottle label and the lighting setup, for matching the AI shots.'),
+]
+AI = [
+    ('Set reveal', 'Camera pulls back from the bottle to show the lights, stands and monitor. Use your own still as the start frame (guide p.7).'),
+    ('Lifestyle montage', 'Four 2–4 s clips of a creator: waking up, getting ready, breakfast, airport (guide p.8).'),
+    ('Sports-drink ad', 'A generic, unbranded sports-drink commercial. No real logos.'),
+    ('Beauty creator', 'Year 1 with mild acne, testing products. Year 2 with clearer skin, holding the serum to camera (guide p.9).'),
+    ('Fitness creator', 'Working out, then sitting with a supplement tub talking to camera (guide p.9).'),
+    ('Young viewer', 'Someone in a dim bedroom watching a creator on a laptop (guide p.10).'),
+]
+
+def film_text(b):
+    import re
+    out = []
+    for k, t in b['layers']:
+        if k == 'real':
+            t = re.sub(r'^A\d+\s+', '', t)
+            out.append(t[0].upper() + t[1:])
+    return out
+def ai_text(b):
+    return [t for k, t in b['layers'] if k == 'ai']
+
+srows = []
+for n, ch in enumerate(CH, 1):
+    srows.append(f'<h3><span>{n:02d}</span>{e(ch["title"])}</h3>')
+    for b in ch['beats']:
+        vo = e(b['vo']) if b['vo'] else '<i>No voiceover. Graphic only.</i>'
+        tags = []
+        for i in b['mg']:
+            tags.append(f'<li class="f{"" if b["core"] else " opt"}"><b>{e(FILES.get(i, i))}</b>{"" if b["core"] else "<small>optional: use your talking head instead</small>"}</li>')
+        for t in film_text(b):
+            lab = 'Reuse' if t.lower().startswith(('split', 'return', 'callback', 'or reuse', 'reuse')) else 'Film'
+            tags.append(f'<li class="r"><b>{lab}</b> {e(t)}</li>')
+        for t in ai_text(b):
+            tags.append(f'<li class="a"><b>AI</b> {e(t)}</li>')
+        srows.append(f'<div class="line"><p>{vo}</p><ul>{"".join(tags)}</ul></div>')
+
+film_html = ''.join(f'<li><input type="checkbox" id="film{i}"><label for="film{i}"><b>{e(t)}</b>{e(d)}</label></li>' for i, (t, d) in enumerate(FILM))
+ai_html = ''.join(f'<li><input type="checkbox" id="ai{i}"><label for="ai{i}"><b>{e(t)}</b>{e(d)}</label></li>' for i, (t, d) in enumerate(AI))
+sp = open(os.path.join(os.path.dirname(__file__), 'sheet-template.html')).read()
+sp = sp.replace('{{FILM}}', film_html).replace('{{AI}}', ai_html).replace('{{SCRIPT}}', '\n'.join(srows)).replace('{{RUNTIME}}', tc(TOTAL))
+open(os.path.join(os.path.dirname(__file__), 'sheet.html'), 'w').write(sp)
+print('sheet written')

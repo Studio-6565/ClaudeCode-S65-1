@@ -1,0 +1,93 @@
+<title>Friendship Edit Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column, three sections in the order you use them: shoot, generate, edit. */
+:root {
+  --bg: #F6F3EE; --surface: #FFFFFF; --line: #E2DDD4; --ink: #1A1816; --mute: #6F6A62;
+  --red: #D8291F; --real: #1A1816; --ai: #3F6E8A;
+  --serif: "Instrument Serif", Georgia, serif; --sans: Inter, "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0C0B0A; --surface: #161513; --line: #2B2926; --ink: #F3EEE4; --mute: #8B867D; --red: #FF3B2F; --real: #F3EEE4; --ai: #8FB0C4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0C0B0A; --surface: #161513; --line: #2B2926; --ink: #F3EEE4; --mute: #8B867D; --red: #FF3B2F; --real: #F3EEE4; --ai: #8FB0C4; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: clamp(16px, 5vw, 40px); padding-block: 40px 80px; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 7vw, 64px); line-height: 1; margin: 0; text-wrap: balance; }
+.sub { color: var(--mute); margin: 12px 0 0; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
+nav a { font-size: 14px; font-weight: 600; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 8px 16px; border-radius: 999px; }
+nav a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+section { margin-top: 48px; }
+h2 { font-family: var(--serif); font-weight: 400; font-size: 36px; margin: 0 0 4px; }
+h2 + p { color: var(--mute); margin: 0 0 16px; }
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.check li { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.check input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--red); flex-shrink: 0; }
+.check label { display: grid; gap: 2px; cursor: pointer; }
+.check label b { font-weight: 600; }
+.check input:checked + label { opacity: .5; text-decoration: line-through; }
+h3 { display: flex; gap: 12px; align-items: baseline; font-family: var(--serif); font-weight: 400; font-size: 26px; margin: 36px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+h3 span { font-family: var(--mono); font-size: 12px; color: var(--red); letter-spacing: .1em; }
+.line { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.line p { font-family: var(--serif); font-size: 21px; line-height: 1.35; margin: 0; max-width: 62ch; }
+.line p i { font-family: var(--sans); font-size: 14px; color: var(--mute); }
+.line ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.line li { font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; min-width: 0; }
+.line li b { font-family: var(--mono); font-weight: 500; font-size: 12px; padding: 2px 8px; border-radius: 4px; overflow-wrap: anywhere; }
+.line li.f b { background: var(--red); color: #fff; }
+.line li.f.opt b { background: transparent; color: var(--red); border: 1px solid var(--red); }
+.line li small { color: var(--mute); font-size: 12px; }
+.line li.r b { background: var(--real); color: var(--bg); }
+.line li.a b { background: var(--ai); color: var(--bg); }
+.key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--mute); margin-bottom: 8px; }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.foot { margin-top: 40px; font-size: 13px; color: var(--mute); }
+</style>
+
+<div class="wrap">
+  <h1>When advertising feels like friendship</h1>
+  <p class="sub">Edit sheet: what to film, what to generate, and which file goes on each line. About {{RUNTIME}} long.</p>
+  <nav aria-label="Sections">
+    <a href="#film">1 · What to film</a>
+    <a href="#ai">2 · AI shots</a>
+    <a href="#script">3 · Script + files</a>
+  </nav>
+
+  <section id="film">
+    <h2>1 · What to film</h2>
+    <p>Shoot these yourself. Tick them off as you go.</p>
+    <ul class="check">{{FILM}}</ul>
+  </section>
+
+  <section id="ai">
+    <h2>2 · AI shots to generate</h2>
+    <p>Make these in Higgsfield. The prompts are in your production guide on the pages listed.</p>
+    <ul class="check">{{AI}}</ul>
+  </section>
+
+  <section id="script">
+    <h2>3 · Script and files</h2>
+    <p>Read top to bottom. Under each line: the file to put on screen, what you film, or which AI shot to use. File names match <code>motion-graphics/out/</code>.</p>
+    <div class="key">
+      <span><i style="background:var(--red)"></i>Graphic file</span>
+      <span><i style="border:1px solid var(--red)"></i>Optional graphic</span>
+      <span><i style="background:var(--real)"></i>You film</span>
+      <span><i style="background:var(--ai)"></i>AI shot</span>
+    </div>
+    {{SCRIPT}}
+  </section>
+
+  <p class="foot">Files ending in <code>-ALPHA.mov</code> are overlays: put them on the track above your footage in Premiere.</p>
+</div>
+
+<script>
+document.querySelectorAll('.check input').forEach(function (box) {
+  try { box.checked = localStorage.getItem('sheet-' + box.id) === '1'; } catch (e) {}
+  box.addEventListener('change', function () {
+    try { localStorage.setItem('sheet-' + box.id, box.checked ? '1' : '0'); } catch (e) {}
+  });
+});
+</script>

@@ -1,0 +1,152 @@
+<title>Friendship Edit Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column, three sections in the order you use them: shoot, generate, edit. */
+:root {
+  --bg: #F6F3EE; --surface: #FFFFFF; --line: #E2DDD4; --ink: #1A1816; --mute: #6F6A62;
+  --red: #D8291F; --real: #1A1816; --ai: #3F6E8A;
+  --serif: "Instrument Serif", Georgia, serif; --sans: Inter, "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0C0B0A; --surface: #161513; --line: #2B2926; --ink: #F3EEE4; --mute: #8B867D; --red: #FF3B2F; --real: #F3EEE4; --ai: #8FB0C4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0C0B0A; --surface: #161513; --line: #2B2926; --ink: #F3EEE4; --mute: #8B867D; --red: #FF3B2F; --real: #F3EEE4; --ai: #8FB0C4; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: clamp(16px, 5vw, 40px); padding-block: 40px 80px; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 7vw, 64px); line-height: 1; margin: 0; text-wrap: balance; }
+.sub { color: var(--mute); margin: 12px 0 0; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
+nav a { font-size: 14px; font-weight: 600; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 8px 16px; border-radius: 999px; }
+nav a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+section { margin-top: 48px; }
+h2 { font-family: var(--serif); font-weight: 400; font-size: 36px; margin: 0 0 4px; }
+h2 + p { color: var(--mute); margin: 0 0 16px; }
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.check li { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.check input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--red); flex-shrink: 0; }
+.check label { display: grid; gap: 2px; cursor: pointer; }
+.check label b { font-weight: 600; }
+.check input:checked + label { opacity: .5; text-decoration: line-through; }
+h3 { display: flex; gap: 12px; align-items: baseline; font-family: var(--serif); font-weight: 400; font-size: 26px; margin: 36px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+h3 span { font-family: var(--mono); font-size: 12px; color: var(--red); letter-spacing: .1em; }
+.line { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.line p { font-family: var(--serif); font-size: 21px; line-height: 1.35; margin: 0; max-width: 62ch; }
+.line p i { font-family: var(--sans); font-size: 14px; color: var(--mute); }
+.line ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.line li { font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; min-width: 0; }
+.line li b { font-family: var(--mono); font-weight: 500; font-size: 12px; padding: 2px 8px; border-radius: 4px; overflow-wrap: anywhere; }
+.line li.f b { background: var(--red); color: #fff; }
+.line li.f.opt b { background: transparent; color: var(--red); border: 1px solid var(--red); }
+.line li small { color: var(--mute); font-size: 12px; }
+.line li.r b { background: var(--real); color: var(--bg); }
+.line li.a b { background: var(--ai); color: var(--bg); }
+.key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--mute); margin-bottom: 8px; }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.foot { margin-top: 40px; font-size: 13px; color: var(--mute); }
+</style>
+
+<div class="wrap">
+  <h1>When advertising feels like friendship</h1>
+  <p class="sub">Edit sheet: what to film, what to generate, and which file goes on each line. About 8:42 long.</p>
+  <nav aria-label="Sections">
+    <a href="#film">1 · What to film</a>
+    <a href="#ai">2 · AI shots</a>
+    <a href="#script">3 · Script + files</a>
+  </nav>
+
+  <section id="film">
+    <h2>1 · What to film</h2>
+    <p>Shoot these yourself. Tick them off as you go.</p>
+    <ul class="check"><li><input type="checkbox" id="film0"><label for="film0"><b>The fake commercial</b>You holding the serum like a real ad: polished beauty lighting, clean background, slow product close-ups (hands, bottle turning). End the take by pushing the bottle right into the lens until it fills the frame.</label></li><li><input type="checkbox" id="film1"><label for="film1"><b>The casual YouTube version</b>Same product, same outfit, same hair. Softer light, relaxed, like a creator filming at home. Say: “I’ve been using this every morning and I genuinely love it.”</label></li><li><input type="checkbox" id="film2"><label for="film2"><b>Talking head</b>You to camera, reading every line marked “Film: talking head” in the script below. Same setup for all of them.</label></li><li><input type="checkbox" id="film3"><label for="film3"><b>Split-screen pair</b>Nothing new to shoot. The split screen reuses the commercial and the YouTube version side by side.</label></li><li><input type="checkbox" id="film4"><label for="film4"><b>Monitor push-in</b>Slowly push the camera toward a monitor or phone screen until the screen fills the frame. Used for the transition into the YouTube window.</label></li><li><input type="checkbox" id="film5"><label for="film5"><b>Reference photos</b>Photos of your outfit, hair, the bottle label and the lighting setup, for matching the AI shots.</label></li></ul>
+  </section>
+
+  <section id="ai">
+    <h2>2 · AI shots to generate</h2>
+    <p>Make these in Higgsfield. The prompts are in your production guide on the pages listed.</p>
+    <ul class="check"><li><input type="checkbox" id="ai0"><label for="ai0"><b>Set reveal</b>Camera pulls back from the bottle to show the lights, stands and monitor. Use your own still as the start frame (guide p.7).</label></li><li><input type="checkbox" id="ai1"><label for="ai1"><b>Lifestyle montage</b>Four 2–4 s clips of a creator: waking up, getting ready, breakfast, airport (guide p.8).</label></li><li><input type="checkbox" id="ai2"><label for="ai2"><b>Sports-drink ad</b>A generic, unbranded sports-drink commercial. No real logos.</label></li><li><input type="checkbox" id="ai3"><label for="ai3"><b>Beauty creator</b>Year 1 with mild acne, testing products. Year 2 with clearer skin, holding the serum to camera (guide p.9).</label></li><li><input type="checkbox" id="ai4"><label for="ai4"><b>Fitness creator</b>Working out, then sitting with a supplement tub talking to camera (guide p.9).</label></li><li><input type="checkbox" id="ai5"><label for="ai5"><b>Young viewer</b>Someone in a dim bedroom watching a creator on a laptop (guide p.10).</label></li></ul>
+  </section>
+
+  <section id="script">
+    <h2>3 · Script and files</h2>
+    <p>Read top to bottom. Under each line: the file to put on screen, what you film, or which AI shot to use. File names match <code>motion-graphics/out/</code>.</p>
+    <div class="key">
+      <span><i style="background:var(--red)"></i>Graphic file</span>
+      <span><i style="border:1px solid var(--red)"></i>Optional graphic</span>
+      <span><i style="background:var(--real)"></i>You film</span>
+      <span><i style="background:var(--ai)"></i>AI shot</span>
+    </div>
+    <h3><span>01</span>Opening — the same product, two different ads</h3>
+<div class="line"><p>Think about this for a second. If a random person appears in a commercial and tells you to buy a skincare product, you immediately know what’s happening. They’re selling you something.</p><ul><li class="f"><b>B02-AdvertisementLabel-ALPHA.mov</b></li><li class="r"><b>Film</b> Fake commercial: beauty lighting, product hero inserts</li><li class="r"><b>Film</b> Bottle pushed into lens to end the shot</li></ul></div>
+<div class="line"><p>But what if it’s someone you’ve been watching online for three years?</p><ul><li class="a"><b>AI</b> Set reveal: pull back from the bottle to show lights, stands and monitor (Higgsfield prompt p.7)</li></ul></div>
+<div class="line"><p>They’re doing their morning routine, talking about their skin, maybe showing an old photo of a breakout, and then they say: “I’ve been using this every morning and I genuinely love it.”</p><ul><li class="f"><b>B01-YouTubeWindow-ALPHA.mov</b></li><li class="f"><b>B25-CommentsPop-ALPHA.mov</b></li><li class="r"><b>Film</b> Casual YouTube version: same product, same wardrobe</li></ul></div>
+<div class="line"><p>That feels different. It doesn’t really feel like an ad anymore. It feels like a recommendation from someone you know.</p><ul><li class="f opt"><b>03-NotAnAd.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>Same product. Same person. Same goal. But these two ads don’t feel the same. One feels like advertising. The other feels like advice.</p><ul><li class="f"><b>B05-SplitLabels-ALPHA.mov</b></li><li class="r"><b>Reuse</b> Split screen: commercial left, YouTube version right</li></ul></div>
+<div class="line"><p>And that’s exactly why influencer marketing is so powerful. Brands aren’t just paying influencers for views. They’re paying for something much more valuable: trust.</p><ul><li class="f"><b>B06-TrustOnBlack.mp4</b></li><li class="r"><b>Film</b> Talking head</li></ul></div>
+<div class="line"><p><i>No voiceover. Graphic only.</i></p><ul><li class="f"><b>B07-TitlePresenter.mp4</b></li></ul></div>
+<h3><span>02</span>Why this works</h3>
+<div class="line"><p>A big part of it comes down to something called a parasocial relationship.</p><ul><li class="f"><b>B09-TermLowerThird-ALPHA.mov</b></li><li class="f"><b>B08-NameLowerThird-ALPHA.mov</b></li><li class="r"><b>Film</b> Talking head</li></ul></div>
+<div class="line"><p>Basically, it’s a one-sided relationship where you feel like you know someone, even though they don’t actually know you.</p><ul><li class="f"><b>06-OneWayRelationship.mp4</b></li></ul></div>
+<div class="line"><p>And social media is almost built for this. You see creators waking up, getting ready, eating, travelling, talking about their relationships, showing their homes, and talking about their problems. Sometimes you’re watching them every single day.</p><ul><li class="f"><b>B10-CalendarFill-ALPHA.mov</b></li><li class="a"><b>AI</b> Lifestyle montage, 2–4 s per clip: morning, get ready, breakfast, travel (prompts p.8)</li></ul></div>
+<div class="line"><p>So after a while, they don’t really feel like a stranger anymore. They start to feel familiar. And familiarity can turn into trust. That trust is incredibly valuable to advertisers.</p><ul><li class="f"><b>B11-ExposureFamiliarityTrust.mp4</b></li><li class="f"><b>B12-EvidenceCard1.mp4</b></li></ul></div>
+<h3><span>03</span>Traditional ads vs. influencer ads</h3>
+<div class="line"><p>Think about how different that is from a normal commercial. If you see a celebrity holding a bottle of Gatorade in a commercial, you understand the arrangement. They got paid. They’re in an ad. Everyone knows what’s happening.</p><ul><li class="r"><b>Film</b> Talking head</li><li class="a"><b>AI</b> Generic sports-drink ad B-roll. Don’t generate a real brand’s logo.</li></ul></div>
+<div class="line"><p>Influencer advertising can be way more subtle. You could be watching someone’s morning routine. They show their coffee, their outfit, their skincare, and somewhere in the middle they go: “By the way, I’ve actually been using this serum for the past few weeks.”</p><ul><li class="r"><b>Reuse</b> Or reuse the casual YouTube version</li><li class="a"><b>AI</b> Beauty creator morning routine: coffee, outfit, skincare</li></ul></div>
+<div class="line"><p>Now the ad is sitting inside normal content. It doesn’t interrupt the video. It becomes part of the video. And that changes how we experience it.</p><ul><li class="f"><b>10-AdInsideContent.mp4</b></li></ul></div>
+<h3><span>04</span>Where it starts to get uncomfortable</h3>
+<div class="line"><p>Because from a marketing perspective, this is extremely smart. The influencer has already spent months or years building the audience. They’ve built familiarity. They’ve built credibility. They’ve built a personality people connect with.</p><ul><li class="f opt"><b>11-BuiltOverYears.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>So when a company comes in and pays them to promote something, that company gets to borrow all of that trust. They’re not starting from zero. They’re entering a relationship that already exists.</p><ul><li class="f"><b>12-BorrowedTrust.mp4</b></li></ul></div>
+<div class="line"><p>And the language usually doesn’t sound like advertising either. It sounds like: “You guys keep asking me about this.” Or: “I’ve genuinely been obsessed with this.” Or: “I would never recommend something I don’t actually use.” That language matters because it feels personal.</p><ul><li class="f opt"><b>13-AdLanguage.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<h3><span>05</span>What the research is trying to answer</h3>
+<div class="line"><p>When I started looking into the research, I didn’t just want to know whether influencer marketing works. We already know brands use it because it works.</p><ul><li class="r"><b>Film</b> Talking head</li></ul></div>
+<div class="line"><p>I wanted to understand why people trust influencers so much, whether that trust actually affects buying decisions, and whether simply putting “sponsored” or “ad” on a post really solves the problem.</p><ul><li class="f"><b>14-ResearchQuestions.mp4</b></li></ul></div>
+<div class="line"><p>So I focused on research around parasocial relationships, credibility, sponsored content, and purchase intention.</p><ul><li class="f opt"><b>B26-SearchTerms.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>One of the biggest ideas that keeps coming up is that influencers become more persuasive when audiences see them as relatable, authentic, or trustworthy.</p><ul><li class="f"><b>B13-EvidenceCard2.mp4</b></li></ul></div>
+<div class="line"><p>Which makes sense. You’re probably going to take a recommendation more seriously from someone you feel connected to than from a random corporate ad. The interesting part is that the relationship itself starts becoming part of the marketing.</p><ul><li class="r"><b>Film</b> Talking head</li></ul></div>
+<h3><span>06</span>Beauty influencers</h3>
+<div class="line"><p>Take beauty influencers. Imagine you’ve watched the same creator for two years. You’ve seen their skin when it was bad. You’ve seen them test different products. You’ve seen what worked and what didn’t.</p><ul><li class="a"><b>AI</b> Beauty creator, year 1: mild acne, testing products (prompt p.9)</li></ul></div>
+<div class="line"><p>Then one day they show you a serum and say: “This is honestly what changed my skin.”</p><ul><li class="a"><b>AI</b> Same creator, year 2: clearer skin, holds the serum to camera</li></ul></div>
+<div class="line"><p>That statement has history behind it. You’re not just evaluating the serum. You’re evaluating it through everything you already know about that person.</p><ul><li class="f"><b>17-BeautyTimeline.mp4</b></li></ul></div>
+<div class="line"><p>That makes the recommendation more powerful. The same product shown in a normal commercial doesn’t have that relationship attached to it. You’re not just buying the serum. You’re buying the story attached to the serum.</p><ul><li class="r"><b>Reuse</b> Callback: reuse the fake commercial from the opening</li></ul></div>
+<h3><span>07</span>Fitness influencers</h3>
+<div class="line"><p>The same thing happens in fitness. Maybe you follow someone because you like their workouts. You’ve watched their transformation. You trust some of their advice. Then eventually they recommend a supplement.</p><ul><li class="a"><b>AI</b> Fitness creator: workout, then seated with the supplement (prompt p.9)</li></ul></div>
+<div class="line"><p>Now you’re not looking at that supplement completely objectively. Your opinion of the creator comes with it. If you trust them, some of that trust transfers to the product.</p><ul><li class="f"><b>18-TrustTransfer.mp4</b></li></ul></div>
+<div class="line"><p>Then maybe there’s a discount code. A link in the bio. A limited-time offer. And suddenly the whole thing becomes very easy.</p><ul><li class="f opt"><b>B18-CheckoutFlow.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>Watch. Trust. Click. Buy.</p><ul><li class="f"><b>20-WatchTrustClickBuy.mp4</b></li></ul></div>
+<h3><span>08</span>What brands are really buying</h3>
+<div class="line"><p>And that’s why brands love influencer marketing. They’re not just buying reach. They’re buying access to an audience that already has a relationship with the person delivering the message.</p><ul><li class="f"><b>B19-BrandFlow.mp4</b></li></ul></div>
+<div class="line"><p>A brand might take years to build trust with a customer. An influencer might already have it.</p><ul><li class="f opt"><b>22-YearsVsAlready.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>So instead of saying, “Trust our company,” the brand is basically saying, “Trust this person you already like.” That’s a much stronger sales tool.</p><ul><li class="f"><b>23-TrustSwap.mp4</b></li></ul></div>
+<h3><span>09</span>But what about #ad?</h3>
+<div class="line"><p>This is usually the obvious response. Influencers are supposed to tell people when something is sponsored. You’ll see things like “Paid partnership,” “Sponsored,” or “Ad.”</p><ul><li class="f"><b>B17-DisclosureZoom.mp4</b></li><li class="f"><b>24-DisclosureLabels.mp4</b></li></ul></div>
+<div class="line"><p>And yes, that absolutely matters. People should know when money is involved. But I don’t think that completely fixes the issue. Knowing something is sponsored doesn’t suddenly erase the relationship.</p><ul><li class="r"><b>Film</b> Talking head</li></ul></div>
+<div class="line"><p>If you’ve trusted someone for three years, seeing the word “ad” probably doesn’t make all of that disappear.</p><ul><li class="f"><b>B20-ThreeYearsOneSecond.mp4</b></li></ul></div>
+<div class="line"><p>You might actually think: “Yeah, they’re getting paid, but they wouldn’t recommend something they didn’t believe in.”</p><ul><li class="f opt"><b>Q7-YouThinking.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>And that’s exactly the point. The disclosure tells you there’s a business relationship. But the influencer’s credibility is still doing most of the selling.</p><ul><li class="f"><b>B14-EvidenceCard3.mp4</b></li></ul></div>
+<h3><span>10</span>The counterargument</h3>
+<div class="line"><p>Now, I don’t think influencer marketing is automatically bad. There are real benefits. Small businesses can reach very specific audiences. Creators can actually make money from their content. People can discover products they genuinely like. And some creators are very selective with who they work with.</p><ul><li class="f opt"><b>26-Benefits.mp4</b><small>optional: use your talking head instead</small></li><li class="a"><b>AI</b> Optional stock/AI: small shop, creator editing</li></ul></div>
+<div class="line"><p>So the issue isn’t simply: influencers get paid, therefore influencer marketing is bad. That’s too simple.</p><ul><li class="f opt"><b>27-TooSimple.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>The bigger issue is what happens when the creator’s relationship with the audience becomes something that can basically be rented by a brand. That’s where the line gets blurry.</p><ul><li class="f"><b>B21-RentListing.mp4</b></li></ul></div>
+<h3><span>11</span>Why younger audiences matter</h3>
+<div class="line"><p>And this becomes even more important with younger audiences. If someone grows up watching YouTubers, TikTok creators, or streamers every day, those creators can feel very different from traditional celebrities.</p><ul><li class="f"><b>B22-DayMonthYear-ALPHA.mov</b></li><li class="a"><b>AI</b> Viewer in a dim bedroom watching a creator on a laptop (prompt p.10)</li></ul></div>
+<div class="line"><p>They talk directly to the camera. They respond to comments. They share personal stories. You might feel like you grew up with them.</p><ul><li class="f opt"><b>29-GrewUp.mp4</b><small>optional: use your talking head instead</small></li></ul></div>
+<div class="line"><p>So when they recommend something, it can be harder to separate: “I trust this person” from “I trust this product.” Those are not necessarily the same thing. But influencer marketing can make them feel like they are.</p><ul><li class="f"><b>B23-PersonProductMorph.mp4</b></li></ul></div>
+<h3><span>12</span>Conclusion — what is really being sold?</h3>
+<div class="line"><p>So what’s really being sold here? Obviously the product. But not just the product. Attention is being sold. Access is being sold. Credibility is being sold. And most importantly, trust is being sold.</p><ul><li class="f"><b>B27-FinalStackOverlay-ALPHA.mov</b></li><li class="r"><b>Reuse</b> Return to the opening: commercial and YouTube frame</li></ul></div>
+<div class="line"><p>That’s what makes influencer marketing different from a traditional ad. The creator has already built the relationship. The brand gets to step into it.</p><ul><li class="r"><b>Film</b> Talking head</li></ul></div>
+<div class="line"><p>And once advertising starts feeling like friendship, we probably need to be more critical about what we’re actually watching.</p><ul><li class="r"><b>Film</b> Talking head, slow push-in</li></ul></div>
+<div class="line"><p>Because sometimes the most valuable thing in the entire deal isn’t the product being promoted. It’s the trust that already existed before the ad ever started.</p><ul><li class="f"><b>32-Ending.mp4</b></li></ul></div>
+  </section>
+
+  <p class="foot">Files ending in <code>-ALPHA.mov</code> are overlays: put them on the track above your footage in Premiere.</p>
+</div>
+
+<script>
+document.querySelectorAll('.check input').forEach(function (box) {
+  try { box.checked = localStorage.getItem('sheet-' + box.id) === '1'; } catch (e) {}
+  box.addEventListener('change', function () {
+    try { localStorage.setItem('sheet-' + box.id, box.checked ? '1' : '0'); } catch (e) {}
+  });
+});
+</script>

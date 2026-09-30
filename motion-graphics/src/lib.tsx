@@ -51,7 +51,7 @@ export const useS = (delay = 0, damping = 200, mass = 1) => {
   return spring({frame: frame - delay, fps, config: {damping, mass}});
 };
 
-const FontGate: React.FC = () => {
+export const FontGate: React.FC = () => {
   const [handle] = useState(() => delayRender('fonts'));
   useEffect(() => {
     Promise.all([
@@ -429,3 +429,11 @@ export const Check: React.FC<{p: number; size?: number}> = ({p, size = 44}) => (
 );
 
 export const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+
+// Transparent-background wrapper for overlays rendered with alpha (ProRes 4444).
+export const Overlay: React.FC<{children: React.ReactNode}> = ({children}) => (
+  <AbsoluteFill style={{fontFamily: F.sans, color: C.ink}}>
+    <FontGate />
+    {children}
+  </AbsoluteFill>
+);

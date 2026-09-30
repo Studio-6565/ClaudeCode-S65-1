@@ -311,7 +311,7 @@ export const DailyFeed: React.FC = () => {
 };
 
 // 08 — Stranger → Familiar → Trust
-export const StrangerToTrust: React.FC = () => {
+export const StrangerToTrust: React.FC<{labels?: string[][]}> = ({labels: custom}) => {
   const f = useCurrentFrame();
   const xs = [360, 960, 1560];
   const t = lerp(f, 30, 160, 0, 2, (x) => x);
@@ -319,7 +319,7 @@ export const StrangerToTrust: React.FC = () => {
   const local = t - seg;
   const e = local < 0.5 ? 2 * local * local : 1 - Math.pow(-2 * local + 2, 2) / 2;
   const x = t >= 2 ? xs[2] : xs[seg] + (xs[seg + 1] - xs[seg]) * e;
-  const labels = [
+  const labels = custom ?? [
     ['Stranger', 'Day 1'],
     ['Familiar', 'Month 6'],
     ['Trust', 'Year 3'],

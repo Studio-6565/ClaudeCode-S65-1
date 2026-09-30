@@ -1,6 +1,6 @@
 # Motion graphics — "When Advertising Feels Like Friendship"
 
-92 clips at 3840×2160, 30 fps: 39 in pack 1 (from the script), 41 in pack 2 (from the storyboard) and 12 chapter cards. Solid clips are H.264 `.mp4`. Overlays (`-ALPHA`) are lossless PNG-in-MOV with transparency. Built with Remotion. Rendered clips are in `out/`, and poster frames are in `out/posters/`.
+80 clips at 3840×2160, 30 fps: 39 in pack 1 (from the script), 29 in pack 2 (from the storyboard) and 12 chapter cards. Solid clips are H.264 `.mp4`. Overlays (`-ALPHA`) are lossless PNG-in-MOV with transparency. Built with Remotion. Rendered clips are in `out/`, and poster frames are in `out/posters/`.
 
 Design system: near-black background, cream type, one red accent (#FF3B2F). Instrument Serif for statements, Inter for UI, and JetBrains Mono for labels. Every clip animates in and then holds its final frame, so you can trim the tail to fit your VO.
 

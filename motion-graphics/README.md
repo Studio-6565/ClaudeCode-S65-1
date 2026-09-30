@@ -68,7 +68,7 @@ Design system: near-black background, cream type, one red accent (#FF3B2F). Inst
 | B24-WatchTrustClickBuyFlash | Alternate Watch / Trust / Click / Buy with colour flips on each beat | full |
 | B25-CommentsPop | Viewer comments popping in | overlay |
 | B26-SearchTerms | 4:20 research setup: search terms | full |
-| B27-FinalStackOverlay | PRODUCT / ATTENTION / ACCESS / CREDIBILITY / TRUST over the returning footage | overlay |
+| B27-FinalStackOverlay | PRODUCT / ATTENTION / ACCESS / CREDIBILITY / TRUST over the returning footage. Text only: add a dark gradient on the left in your edit so it reads over bright footage. | overlay |
 | B28 + B29-PhonePortal | Phone portal transition: B28 is the bezel, B29 is a white screen matte with identical motion. Use B29 as a track/alpha matte for the incoming clip and put B28 on top. | overlay |
 | C01–C12-Chapter | Chapter cards for each script section | full |
 

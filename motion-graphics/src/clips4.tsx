@@ -320,11 +320,10 @@ export const FinalStackOverlay: React.FC = () => {
     ['CREDIBILITY', 96],
     ['TRUST', 170],
   ] as const;
-  const bg = useS(0);
+  // No gradient backdrop: Chrome dithers gradients, which makes lossless alpha files ~500 MB. Darken in the edit instead.
   return (
     <Overlay>
-      <AbsoluteFill style={{background: 'linear-gradient(90deg, rgba(12,11,10,0.88) 0%, rgba(12,11,10,0.6) 40%, transparent 65%)', opacity: bg}} />
-      <div style={{position: 'absolute', left: 130, bottom: 110}}>
+      <div style={{position: 'absolute', left: 130, bottom: 110, textShadow: '0 6px 40px rgba(0,0,0,0.55)'}}>
         {items.map(([t, size], i) => {
           const s = useS(14 + i * 22, i === 4 ? 14 : 200);
           return (

@@ -12,7 +12,8 @@ const pick = {
 const skip = new Set(['B29-PhonePortalMatte-ALPHA']);
 
 const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts')});
-const comps = (await getCompositions(serveUrl)).filter((c) => !skip.has(c.id));
+const only = process.argv.slice(2);
+const comps = (await getCompositions(serveUrl)).filter((c) => !skip.has(c.id) && (!only.length || only.some((o) => c.id.startsWith(o))));
 fs.mkdirSync('out/stills', {recursive: true});
 for (const c of comps) {
   await renderStill({composition: c, serveUrl, output: `out/stills/${c.id}.png`, frame: pick[c.id] ?? c.durationInFrames - 1, scale: 2, imageFormat: 'png'});

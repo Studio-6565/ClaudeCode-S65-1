@@ -1,0 +1,161 @@
+<title>When Advertising Feels Like Friendship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an edit decision list. Timecode rail, script column, picture column; the video's own dark palette. */
+:root {
+  --bg: #0C0B0A;
+  --surface: #161513;
+  --surface-2: #1E1C1A;
+  --line: #2B2926;
+  --ink: #F3EEE4;
+  --mute: #8B867D;
+  --red: #FF3B2F;
+  --real: #F3EEE4;
+  --ai: #8FB0C4;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 40px 80px; }
+
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 7vw, 84px); line-height: .98; margin: 16px 0 0; text-wrap: balance; }
+h1 em { color: var(--red); }
+.meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 22px; color: var(--mute); font-size: 14px; }
+.meta b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.overview { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 22px; display: grid; gap: 14px; }
+.strip { display: flex; height: 22px; border-radius: 4px; overflow: hidden; gap: 1px; background: var(--line); }
+.seg.real { background: var(--real); }
+.seg.ai { background: var(--ai); }
+.seg.mg { background: var(--red); }
+.strip-scale { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--mute); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; color: var(--mute); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.legend b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.advice { font-size: 14px; color: var(--mute); max-width: 72ch; margin: 4px 0 0; }
+.advice b { color: var(--ink); font-weight: 600; }
+
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 14px; margin-top: 26px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: 500 13px var(--sans); color: var(--mute); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.filters button[aria-pressed="true"] { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.chapter { margin-top: 48px; }
+.ch-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.ch-no { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.ch-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.05; margin: 0; flex: 1 1 320px; text-wrap: balance; }
+.ch-tc, .ch-card { font-family: var(--mono); font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; }
+
+.beat { display: grid; grid-template-columns: 76px minmax(0, 1fr) minmax(0, 400px); gap: 24px; padding-block: 22px; border-bottom: 1px solid var(--line); }
+.tc { display: flex; flex-direction: column; gap: 2px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tc span { font-size: 16px; color: var(--ink); }
+.tc small { font-size: 12px; color: var(--mute); }
+.tc em { margin-top: 8px; font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); border: 1px solid var(--red); border-radius: 3px; padding: 1px 6px; align-self: flex-start; }
+.vo { font-family: var(--serif); font-size: 22px; line-height: 1.32; margin: 0; max-width: 60ch; }
+.vo.none { font-family: var(--mono); font-size: 13px; color: var(--mute); }
+.layers { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 6px; }
+.layer { font-size: 14px; color: var(--ink); display: flex; gap: 10px; align-items: baseline; }
+.tag { flex-shrink: 0; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; }
+.layer.real .tag { background: var(--real); color: var(--bg); }
+.layer.ai .tag { background: var(--ai); color: var(--bg); }
+.layer.mg .tag { background: var(--red); color: var(--bg); }
+.note { margin: 12px 0 0; font-size: 13px; color: var(--mute); max-width: 65ch; }
+.note::before { content: "Edit note  "; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+
+.picture { display: grid; gap: 10px; align-content: start; }
+.thumb { margin: 0; }
+.thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); }
+.thumb figcaption { font-size: 12px; color: var(--mute); margin-top: 6px; }
+.thumb figcaption b { font-family: var(--mono); font-weight: 500; color: var(--ink); margin-right: 4px; }
+.nothumb { aspect-ratio: 16 / 9; border: 1px dashed var(--line); border-radius: 6px; display: grid; place-items: center; font-size: 13px; color: var(--mute); text-align: center; padding: 12px; }
+.alts > span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.alt-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
+.thumb.small figcaption { font-size: 11px; }
+
+.unused { margin-top: 64px; border-top: 1px solid var(--line); padding-top: 22px; }
+.unused h2 { font-family: var(--serif); font-weight: 400; font-size: 36px; margin: 0; }
+.unused p { color: var(--mute); max-width: 70ch; }
+.unused-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 16px; }
+.method { margin-top: 40px; font-size: 13px; color: var(--mute); max-width: 72ch; }
+
+@media (max-width: 860px) {
+  .beat { grid-template-columns: 60px minmax(0, 1fr); }
+  .picture { grid-column: 2; }
+  .vo { font-size: 19px; }
+}
+@media (max-width: 480px) {
+  .beat { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .picture { grid-column: 1; }
+  .tc { flex-direction: row; gap: 10px; align-items: baseline; }
+  .tc em { margin-top: 0; }
+}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Storyboard · edit plan</div>
+  <h1>When advertising feels like <em>friendship</em></h1>
+  <div class="meta">
+    <span>Runtime <b>≈ {{RUNTIME}}</b></span>
+    <span><b>{{BEATS}}</b> beats</span>
+    <span><b>{{HERO}}</b> graphics placed</span>
+    <span><b>{{CORE}}</b> marked core</span>
+  </div>
+
+  <div class="overview">
+    <div class="strip" aria-label="What leads each beat, in running order">{{STRIP}}</div>
+    <div class="strip-scale"><span>0:00</span><span>{{RUNTIME}}</span></div>
+    <div class="legend">
+      <span><i style="background:var(--real)"></i>Your footage <b>{{PREAL}}%</b></span>
+      <span><i style="background:var(--ai)"></i>AI B-roll <b>{{PAI}}%</b></span>
+      <span><i style="background:var(--red)"></i>Graphics <b>{{PMG}}%</b></span>
+    </div>
+    <p class="advice"><b>This full plan is too graphics-heavy to use as is.</b> Build the core cut first: {{CFULL}} full-screen graphics plus {{COVER}} overlays that sit on your footage. In the core cut, every non-core graphic beat goes back to your talking head, which shifts the balance to about {{CREAL}}% your footage, {{CAI}}% AI B-roll and {{CMG}}% graphics. Add alternates only where the pacing sags. If a graphic just repeats the line you're saying, cut it and show your face.</p>
+  </div>
+
+  <nav class="filters" aria-label="Filter beats">
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">All beats</button>
+    <button type="button" id="f-core" data-f="core" aria-pressed="false">Core cut</button>
+    <button type="button" id="f-real" data-f="real" aria-pressed="false">Shoot list</button>
+    <button type="button" id="f-ai" data-f="ai" aria-pressed="false">AI generate list</button>
+    <button type="button" id="f-mg" data-f="mg" aria-pressed="false">Graphics</button>
+  </nav>
+
+  {{ROWS}}
+
+  <section class="unused">
+    <h2>Not in this edit</h2>
+    <p>{{NUNUSED}} rendered graphics aren’t placed as a main pick or an alternate. Keep them as spares, or use them for the thumbnail, Shorts or the end screen.</p>
+    <div class="unused-grid">{{UNUSED}}</div>
+  </section>
+
+  <p class="method">Timecodes are estimates: each beat’s word count at 155 words per minute plus a short pause, with fixed time for the title and visual-only moments. Record your voiceover, then slide each beat to match. The clip IDs match the file names in <code>motion-graphics/out/</code>.</p>
+</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  function apply(f) {
+    document.querySelectorAll('.beat').forEach(function (b) {
+      var show = f === 'all' || (f === 'core' ? b.classList.contains('core') : (' ' + b.dataset.kinds + ' ').indexOf(' ' + f + ' ') > -1);
+      b.hidden = !show;
+    });
+    document.querySelectorAll('.chapter').forEach(function (c) {
+      c.hidden = !c.querySelector('.beat:not([hidden])');
+    });
+    buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.f === f)); });
+    try { localStorage.setItem('sb-filter', f); } catch (e) {}
+  }
+  buttons.forEach(function (x) { x.addEventListener('click', function () { apply(x.dataset.f); }); });
+  var saved = 'all';
+  try { saved = localStorage.getItem('sb-filter') || 'all'; } catch (e) {}
+  apply(saved);
+})();
+</script>

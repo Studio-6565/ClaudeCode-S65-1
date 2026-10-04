@@ -345,7 +345,7 @@ export const Friction: React.FC = () => {
         </div>
       </div>
       <AbsoluteFill style={{justifyContent: 'flex-end', padding: '0 180px 150px'}}>
-        <Words text="And suddenly the whole thing / becomes *very* easy." size={110} delay={90} />
+        <Words text="And suddenly the whole thing / becomes *really* easy." size={110} delay={90} />
       </AbsoluteFill>
     </Stage>
   );

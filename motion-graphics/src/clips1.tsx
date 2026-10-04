@@ -91,7 +91,7 @@ export const NotAnAd: React.FC = () => {
         <div style={{position: 'absolute', textAlign: 'center'}}>
           <Words text="It doesn't feel like an ad anymore." delay={84} size={64} font={F.sans} weight={500} color={C.mute} align="center" stagger={2} />
           <div style={{height: 30}} />
-          <Words text="It feels like a *recommendation* / from someone you know." delay={104} size={120} align="center" stagger={3} />
+          <Words text="It feels more like a *recommendation* / from someone you know." delay={104} size={112} align="center" stagger={3} />
         </div>
       </AbsoluteFill>
     </Stage>

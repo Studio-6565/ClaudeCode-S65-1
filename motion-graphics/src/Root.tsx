@@ -50,7 +50,7 @@ const clips: [string, React.FC<any>, number][] = [
 ];
 
 const quotes: [string, string, string, string, boolean?][] = [
-  ['Q1-EveryMorning', 'I’ve been using this every morning and I *genuinely* love it.', 'maya.mornings', 'Morning routine'],
+  ['Q1-EveryMorning', 'I’ve been using this every morning for the last few weeks, and I *genuinely* love it.', 'maya.mornings', 'Morning routine'],
   ['Q2-ByTheWay', 'By the way, I’ve actually been using this serum for the past few weeks.', 'maya.mornings', 'Mid-video · 06:41'],
   ['Q3-KeepAsking', 'You guys keep *asking* me about this.', 'maya.mornings', 'Get ready with me'],
   ['Q4-Obsessed', 'I’ve *genuinely* been obsessed with this.', 'maya.mornings', 'Favourites of the month'],

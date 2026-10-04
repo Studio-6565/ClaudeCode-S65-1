@@ -154,6 +154,68 @@ beat('And once advertising starts feeling like friendship, we probably need to b
 beat('Because sometimes the most valuable thing in the entire deal isn’t the product being promoted. It’s the trust that already existed before the ad ever started.',
      [('mg', 'Full-screen, then cut to black')], ['32'], [], 'Hold black for two seconds before the end card.', core=True, extra=2)
 
+
+# Final script (When_Advertising_Feels_Like_Friendship.docx): the voiceover for each beat, in order.
+FINAL_VO = [
+    "Think about this for a second. If a random person appears in a commercial and tells you to buy a skincare product, you immediately know what’s happening. They’re selling you something.",
+    "But what if it’s someone you’ve been watching online for three years?",
+    "They’re doing their morning routine, talking about their skin, maybe showing an old photo of a breakout, and then they say: “I’ve been using this every morning for the last few weeks, and I genuinely love it.”",
+    "That feels different. It doesn’t really feel like an ad anymore. It feels more like a recommendation from someone you know.",
+    "",
+    "And that’s exactly why influencer marketing is so powerful. Brands aren’t just paying influencers for views. They’re paying for something much more valuable. Trust.",
+    "",
+    "A big part of why this works comes down to something called a parasocial relationship.",
+    "Basically, it’s a one-sided relationship where you feel like you know someone, even though they don’t actually know you.",
+    "And social media is almost built for this. You see creators waking up. Getting ready. Eating. Travelling. Talking about their relationships. Showing their homes. Talking about their problems. Sometimes you’re watching them every single day.",
+    "So after a while, they stop feeling like strangers. They start to feel familiar. And familiarity can turn into trust. That trust is incredibly valuable to advertisers.",
+    "Think about how different that is from a normal commercial. If you see a celebrity holding a drink in a commercial, you understand the arrangement. They got paid. They’re in an ad. Everyone knows what’s happening.",
+    "Influencer advertising can be way more subtle. You could be watching someone’s morning routine. They show their coffee. Their outfit. Their skincare. And somewhere in the middle they say: “By the way, I’ve actually been using this serum for the past few weeks.”",
+    "Now the ad is sitting inside normal content. It doesn’t interrupt the video. It becomes part of the video. And that changes how we experience it.",
+    "That’s where things start getting a little uncomfortable. Because from a marketing perspective, this is extremely smart. The influencer has already spent months or years building the audience. They’ve built familiarity. They’ve built credibility. They’ve built a personality people connect with.",
+    "So when a company pays them to promote something, that company gets to borrow all of that trust. They’re not starting from zero. They’re entering a relationship that already exists.",
+    "And the language usually doesn’t sound like advertising either. It sounds like: “You guys keep asking me about this.” Or: “I’ve genuinely been obsessed with this.” Or: “I would never recommend something I don’t actually use.” That language matters. Because it feels personal.",
+    "When I started looking into the research, I didn’t just want to know whether influencer marketing works. We already know brands use it because it works.",
+    "I wanted to understand why people trust influencers so much, whether that trust affects buying decisions, and whether simply putting “sponsored” or “ad” on a post really solves the problem.",
+    "So I focused on research around parasocial relationships, credibility, sponsored content, and purchase intention.",
+    "And one of the biggest patterns that comes up is that influencers become more persuasive when audiences see them as relatable, authentic, or trustworthy.",
+    "Which makes sense. You’re probably going to take a recommendation more seriously from someone you feel connected to than from a random corporate ad. The interesting part is that the relationship itself starts becoming part of the marketing.",
+    "Take beauty influencers. Imagine you’ve watched the same creator for two years. You’ve seen their skin when it was bad. You’ve seen them try different products. You’ve seen what worked and what didn’t.",
+    "Then one day they show you a serum and say: “This is honestly what changed my skin.”",
+    "That statement has history behind it. You’re not just evaluating the serum. You’re evaluating it through everything you already know about that person.",
+    "That makes the recommendation more powerful. The same product shown in a normal commercial doesn’t have that relationship attached to it.",
+    "The same thing happens in fitness. Maybe you follow someone because you like their workouts. You’ve watched their transformation. You trust some of their advice. Then eventually they recommend a supplement.",
+    "Now you’re not looking at that supplement completely objectively. Your opinion of the creator comes with it. If you trust them, some of that trust transfers to the product.",
+    "Then maybe there’s a discount code. A link in the bio. A limited-time offer. And suddenly the whole thing becomes really easy.",
+    "Watch. Trust. Click. Buy.",
+    "And that’s why brands love influencer marketing. They’re not just buying reach. They’re buying access to an audience that already has a relationship with the person delivering the message. That is incredibly valuable.",
+    "Because a brand might take years to build trust with a customer. An influencer might already have it.",
+    "So instead of saying: “Trust our company.” The brand is basically saying: “Trust this person you already like.” That’s a much stronger sales tool.",
+    "But then there’s the obvious question. What about sponsorship disclosure? Influencers are supposed to tell people when something is sponsored. You’ll see: “Paid partnership.” “Sponsored.” “Ad.”",
+    "And that definitely matters. People should know when money is involved. But I don’t think that completely fixes the issue. Because knowing something is sponsored doesn’t suddenly erase the relationship.",
+    "If you’ve trusted someone for three years, seeing the word “ad” probably doesn’t make all of that disappear.",
+    "You might actually think: “Yeah, they’re getting paid, but they wouldn’t recommend something they didn’t believe in.”",
+    "And that’s exactly the point. The disclosure tells you there’s a business relationship. But the influencer’s credibility is still doing most of the selling.",
+    "Now, influencer marketing isn’t automatically bad. There are real benefits. Small businesses can reach very specific audiences. Creators can make money from their content. People can discover products they genuinely like. And some creators are very selective about who they work with.",
+    "So the issue isn’t simply: Influencers get paid, therefore influencer marketing is bad. That’s too simple.",
+    "The bigger issue is what happens when the creator’s relationship with the audience becomes something that can basically be rented by a brand. That’s where the line gets blurry.",
+    "And this becomes even more important with younger audiences. If someone grows up watching YouTubers, TikTok creators, or streamers every day, those creators can feel very different from traditional celebrities.",
+    "They talk directly to the camera. They respond to comments. They share personal stories. You might feel like you grew up with them.",
+    "So when they recommend something, it can be harder to separate: “I trust this person” from “I trust this product.” Those are not necessarily the same thing. But influencer marketing can make them feel like they are.",
+    "So what’s really being sold here? Obviously the product. But not just the product. Attention is being sold. Access is being sold. Credibility is being sold. And most importantly, trust is being sold.",
+    "That’s what makes influencer marketing different from a traditional ad. The creator has already built the relationship. The brand gets to step into it.",
+    "And once advertising starts feeling like friendship, we probably need to be more critical about what we’re actually watching.",
+    "Because sometimes the most valuable thing in the entire deal isn’t the product being promoted. It’s the trust that already existed before the ad ever started.",
+]
+_all = [b for ch in CH for b in ch['beats']]
+assert len(_all) == len(FINAL_VO), (len(_all), len(FINAL_VO))
+for b, v in zip(_all, FINAL_VO):
+    b['vo'] = v
+# Beat 5 has no voiceover in the final script: the split screen plays as a visual beat.
+_all[4]['fixed'] = 4
+_all[4]['note'] = 'Not in the voiceover. Hold the commercial and YouTube version side by side for about 4 s with the labels, music only.'
+_all[11]['layers'] = [('real', 'Talking head'), ('ai', 'Generic drink commercial B-roll, unbranded')]
+_all[11]['note'] = 'The script says “a drink”, so keep the B-roll unbranded.'
+
 # ── timing ─────────────────────────────────────────────────────────────────
 def secs(b):
     if b['fixed'] is not None: return b['fixed']

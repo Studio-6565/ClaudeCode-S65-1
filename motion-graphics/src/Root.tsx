@@ -12,6 +12,7 @@ import * as A from './clips1';
 import * as B from './clips2';
 import * as D from './clips3';
 import * as E from './clips4';
+import {Card} from './clips5';
 
 // [id, component, seconds]. Designed at 1920x1080; rendered at scale 2 => 3840x2160.
 const clips: [string, React.FC<any>, number][] = [
@@ -107,8 +108,25 @@ const chapters = [
   'What is really being sold?',
 ];
 
+// Pack 3 — card versions (S-prefix) of graphics that share the screen with the presenter.
+const CARD_IDS = ['03', '11', '13', '14', '18', '22', '23', '26', '27', '29', 'Q7', 'B18', 'B26'];
+const allClips: [string, React.FC<any>, number, any][] = [
+  ...clips.map(([id, c, sec]) => [id, c, sec, {}] as [string, React.FC<any>, number, any]),
+  ...pack2.map(([id, c, sec, props]) => [id, c, sec, props ?? {}] as [string, React.FC<any>, number, any]),
+  ...quotes.map(([id, quote, who, context, thought]) => [id, D.Quote, 3.5 + quote.split(' ').length * 0.18, {quote, who, context, thought: !!thought}] as [string, React.FC<any>, number, any]),
+];
+const cards = CARD_IDS.map((short) => {
+  const [id, comp, sec, props] = allClips.find(([id]) => id.split('-')[0] === short)!;
+  // Props are serialized, so the inner component is bound here rather than passed as a prop.
+  const Bound: React.FC<{innerProps: any}> = ({innerProps}) => <Card inner={comp} innerProps={innerProps} />;
+  return {id: `S-${id}-ALPHA`, comp: Bound, frames: Math.round(sec * 30) + 30, props};
+});
+
 export const Root: React.FC = () => (
   <>
+    {cards.map(({id, comp, frames, props}) => (
+      <Composition key={id} id={id} component={comp} durationInFrames={frames} fps={30} width={1920} height={1080} defaultProps={{innerProps: props}} />
+    ))}
     {pack2.map(([id, Comp, sec, props]) => (
       <Composition key={id} id={id} component={Comp} durationInFrames={Math.round(sec * 30)} fps={30} width={1920} height={1080} defaultProps={props ?? {}} />
     ))}

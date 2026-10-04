@@ -4,7 +4,7 @@
 
 ## Overview
 
-Cut an 8–9 minute YouTube-style video essay from three inputs: Rathan's footage, AI B-roll and 80 finished 4K motion graphics. Rathan's face carries the video. Graphics appear only where they show something words can't.
+Cut an 8–9 minute YouTube-style video essay from three inputs: Rathan's footage, AI B-roll and 80 finished 4K motion graphics. Rathan's face carries the video, and the graphics stay: hero graphics play full screen, the rest slide in as cards beside Rathan.
 
 | Item | Spec |
 | --- | --- |
@@ -12,7 +12,7 @@ Cut an 8–9 minute YouTube-style video essay from three inputs: Rathan's footag
 | Frame | 16:9, 3840×2160, 30 fps |
 | Presenter | Rathan Vijearajah. Their face must appear in the video (submission requirement). |
 | Style | Polished YouTube essay, not a classroom slideshow. Dark graphics, cream type, one red accent. |
-| Graphics balance (core cut) | About 54% Rathan on screen (4.6 min), 16% AI B-roll, 30% graphics. More once each graphic beat opens on Rathan. |
+| Graphics balance (core cut) | Rathan on screen about 53% (4.6 min), half of it with a card beside them. Graphics on screen about 57%: 30% full screen, 27% as cards. AI B-roll 16%. |
 
 The one rule: every graphic must move the argument forward. If a graphic only repeats the line being spoken, cut it and stay on Rathan.
 
@@ -29,7 +29,7 @@ All 80 graphics are in one folder, `motion-graphics/out/`, named by the IDs used
 | Rathan's footage | From Rathan | Commercial, casual YouTube version, talking head, monitor push-in |
 | AI B-roll | From Rathan (Higgsfield) | Set reveal, lifestyle montage, sports-drink ad, beauty creator, fitness creator, young viewer |
 
-ID prefixes: `01`–`32` and `Q1`–`Q7` come from the script, `B01`–`B29` from the storyboard, `C01`–`C12` are chapter cards.
+ID prefixes: `01`–`32` and `Q1`–`Q7` come from the script, `B01`–`B29` from the storyboard, `C01`–`C12` are chapter cards. `S-` files are card versions of 13 graphics: the card sits on the right 55% of the frame and the left side is transparent.
 
 ## Premiere setup
 
@@ -44,14 +44,15 @@ The graphics are already tested in Premiere: the overlays import with working tr
     - V4: `B28` (the phone bezel)
 4. **Final stack (`B27`):** text only. Add an Essential Graphics rectangle under it with a linear gradient, black on the left fading to transparent at about two-thirds of the width.
 5. **Playback:** the 4K lossless overlays are heavy. Use 1/2 or 1/4 playback resolution, or proxies. Neither affects the export.
+6. **Cards (`S-*-ALPHA.mov`):** Rathan's clip on V1, the card on V2 at 100%. The card is already placed on the right 55% of the frame. If Rathan was filmed centred, move their clip left to Position 1500, 1080 so they sit in the left third.
 
 ## Edit approach
 
 Work in three passes and send Rathan an export after each one.
 
 1. **Radio cut:** lay Rathan's voiceover or talking head end to end, tighten the pauses, and lock the runtime. Every timecode in this brief is an estimate until this pass is done.
-2. **Core cut:** add the graphics and AI shots marked Core in the beat plan below. Every beat marked You stays on Rathan.
-3. **Polish:** sound, colour and captions. Don't swap in the backup graphics without asking Rathan.
+2. **Core cut:** add the graphics and AI shots marked Core in the beat plan below. Beats marked Card keep Rathan on screen with the card version on top.
+3. **Polish:** sound, colour and captions. Don't swap a card for its full-screen version without asking Rathan.
 
 Pacing rules:
 
@@ -63,7 +64,7 @@ Pacing rules:
 
 ## Beat plan
 
-Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) in order, with what goes on screen. Times are estimates; slide them to the radio cut. Core = use the graphic. You = stay on Rathan's face; any graphic listed on a You row is a backup only. The full lines are in the script document.
+Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) in order, with what goes on screen. Times are estimates; slide them to the radio cut. Core = use the graphic. Card = Rathan on the left, the card version (`S-` file) sliding in on the right. The full lines are in the script document.
 
 ### 01 · Opening (0:00–1:00)
 
@@ -72,7 +73,7 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 | 0:00 | Think about this for a second. If a random person appears … | `B02-AdvertisementLabel-ALPHA.mov`; Footage: fake commercial, ending with the bottle pushed into the lens; Alt: `02` | Core |
 | 0:12 | But what if it’s someone you’ve been watching online for three … | AI: set reveal, pulling back from the bottle to show the lights, stands and monitor | AI shot |
 | 0:17 | They’re doing their morning routine, talking about their skin, maybe showing … | `B01-YouTubeWindow-ALPHA.mov`; `B25-CommentsPop-ALPHA.mov`; Footage: casual YouTube version; Alt: `Q1`, `B28` | Core |
-| 0:32 | That feels different. It doesn’t really feel like an ad anymore. … | `03-NotAnAd.mp4` | You |
+| 0:32 | That feels different. It doesn’t really feel like an ad anymore. … | `S-03-NotAnAd-ALPHA.mov` | Card |
 | 0:41 | (no voiceover, about 4 s, music only) | `B05-SplitLabels-ALPHA.mov`; Footage: split screen, commercial left and YouTube version right; Alt: `B03`, `B04` | Core |
 | 0:45 | And that’s exactly why influencer marketing is so powerful. Brands aren’t … | Footage: talking head, then hard cut to `B06-TrustOnBlack.mp4` on “Trust.”; Alt: `04` | Core |
 | 0:55 | (no voiceover) | `B07-TitlePresenter.mp4`; Alt: `01` | Core |
@@ -98,17 +99,17 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
-| 2:22 | That’s where things start getting a little uncomfortable. Because from a … | `11-BuiltOverYears.mp4`; Alt: `B16` | You |
+| 2:22 | That’s where things start getting a little uncomfortable. Because from a … | `S-11-BuiltOverYears-ALPHA.mov`; Alt: `B16` | Card |
 | 2:38 | So when a company pays them to promote something, that company … | `12-BorrowedTrust.mp4` | Core |
-| 2:51 | And the language usually doesn’t sound like advertising either. It sounds … | `13-AdLanguage.mp4`; Alt: `Q3`, `Q4`, `Q5` | You |
+| 2:51 | And the language usually doesn’t sound like advertising either. It sounds … | `S-13-AdLanguage-ALPHA.mov`; Alt: `Q3`, `Q4`, `Q5` | Card |
 
 ### 05 · The research (3:08–4:02)
 
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
 | 3:08 | When I started looking into the research, I didn’t just want … | Footage: talking head | Footage |
-| 3:18 | I wanted to understand why people trust influencers so much, whether … | `14-ResearchQuestions.mp4` | You |
-| 3:31 | So I focused on research around parasocial relationships, credibility, sponsored content, … | `B26-SearchTerms.mp4`; Alt: `15` | You |
+| 3:18 | I wanted to understand why people trust influencers so much, whether … | `S-14-ResearchQuestions-ALPHA.mov` | Card |
+| 3:31 | So I focused on research around parasocial relationships, credibility, sponsored content, … | `S-B26-SearchTerms-ALPHA.mov`; Alt: `15` | Card |
 | 3:37 | And one of the biggest patterns that comes up is that … | `B13-EvidenceCard2.mp4`; Alt: `16` | Core |
 | 3:47 | Which makes sense. You’re probably going to take a recommendation more … | Footage: talking head | Footage |
 
@@ -126,8 +127,8 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
 | 4:41 | The same thing happens in fitness. Maybe you follow someone because … | AI: fitness creator working out, then seated with the supplement | AI shot |
-| 4:53 | Now you’re not looking at that supplement completely objectively. Your opinion … | `18-TrustTransfer.mp4` | You |
-| 5:05 | Then maybe there’s a discount code. A link in the bio. … | `B18-CheckoutFlow.mp4`; Alt: `19` | You |
+| 4:53 | Now you’re not looking at that supplement completely objectively. Your opinion … | `S-18-TrustTransfer-ALPHA.mov` | Card |
+| 5:05 | Then maybe there’s a discount code. A link in the bio. … | `S-B18-CheckoutFlow-ALPHA.mov`; Alt: `19` | Card |
 | 5:14 | Watch. Trust. Click. Buy. | `20-WatchTrustClickBuy.mp4`; Alt: `B24` | Core |
 
 ### 08 · What brands are really buying (5:19–5:50)
@@ -135,8 +136,8 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
 | 5:19 | And that’s why brands love influencer marketing. They’re not just buying … | `B19-BrandFlow.mp4`; Alt: `21` | Core |
-| 5:33 | Because a brand might take years to build trust with a … | `22-YearsVsAlready.mp4` | You |
-| 5:40 | So instead of saying: “Trust our company.” The brand is basically … | `23-TrustSwap.mp4` | You |
+| 5:33 | Because a brand might take years to build trust with a … | `S-22-YearsVsAlready-ALPHA.mov` | Card |
+| 5:40 | So instead of saying: “Trust our company.” The brand is basically … | `S-23-TrustSwap-ALPHA.mov` | Card |
 
 ### 09 · What about disclosure? (5:50–6:38)
 
@@ -145,15 +146,15 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 | 5:50 | But then there’s the obvious question. What about sponsorship disclosure? Influencers … | `B17-DisclosureZoom.mp4`, then `24-DisclosureLabels.mp4` | Core |
 | 6:01 | And that definitely matters. People should know when money is involved. … | Footage: talking head | Footage |
 | 6:13 | If you’ve trusted someone for three years, seeing the word “ad” … | `B20-ThreeYearsOneSecond.mp4`; Alt: `25` | Core |
-| 6:21 | You might actually think: “Yeah, they’re getting paid, but they wouldn’t … | `Q7-YouThinking.mp4` | You |
+| 6:21 | You might actually think: “Yeah, they’re getting paid, but they wouldn’t … | `S-Q7-YouThinking-ALPHA.mov` | Card |
 | 6:28 | And that’s exactly the point. The disclosure tells you there’s a … | `B14-EvidenceCard3.mp4`; Alt: `25` | Core |
 
 ### 10 · The counterargument (6:38–7:13)
 
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
-| 6:38 | Now, influencer marketing isn’t automatically bad. There are real benefits. Small … | `26-Benefits.mp4`; optional B-roll of a small shop or a creator editing | You |
-| 6:55 | So the issue isn’t simply: Influencers get paid, therefore influencer marketing … | `27-TooSimple.mp4` | You |
+| 6:38 | Now, influencer marketing isn’t automatically bad. There are real benefits. Small … | `S-26-Benefits-ALPHA.mov`; optional B-roll of a small shop or a creator editing | Card |
+| 6:55 | So the issue isn’t simply: Influencers get paid, therefore influencer marketing … | `S-27-TooSimple-ALPHA.mov` | Card |
 | 7:01 | The bigger issue is what happens when the creator’s relationship with … | `B21-RentListing.mp4`; Alt: `28` | Core |
 
 ### 11 · Younger audiences (7:13–7:50)
@@ -161,7 +162,7 @@ Every line of the final script (`When_Advertising_Feels_Like_Friendship.docx`) i
 | Time | Line | On screen | Use |
 | --- | --- | --- | --- |
 | 7:13 | And this becomes even more important with younger audiences. If someone … | `B22-DayMonthYear-ALPHA.mov`; AI: young viewer in a dim bedroom watching a creator on a laptop | Core |
-| 7:25 | They talk directly to the camera. They respond to comments. They … | `29-GrewUp.mp4` | You |
+| 7:25 | They talk directly to the camera. They respond to comments. They … | `S-29-GrewUp-ALPHA.mov` | Card |
 | 7:35 | So when they recommend something, it can be harder to separate: … | `B23-PersonProductMorph.mp4`; Alt: `30` | Core |
 
 ### 12 · Conclusion (7:50–8:34)

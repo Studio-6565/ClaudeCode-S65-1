@@ -79,23 +79,34 @@ const Grain: React.FC = () => (
   </AbsoluteFill>
 );
 
+// Inside a card (see Card in clips5.tsx) the stage drops grain, glow and vignette: they are noise and
+// dithered gradients, which make lossless alpha files huge, and the card has its own edge.
+export const FlatStage = React.createContext(false);
+
 export const Stage: React.FC<{children: React.ReactNode; bg?: string; grain?: boolean}> = ({
   children,
   bg = C.bg,
   grain = true,
-}) => (
-  <AbsoluteFill style={{background: bg, fontFamily: F.sans, color: C.ink}}>
-    <FontGate />
-    <AbsoluteFill
-      style={{background: 'radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.035), transparent 65%)'}}
-    />
-    {children}
-    {grain && <Grain />}
-    <AbsoluteFill
-      style={{background: 'radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45))', pointerEvents: 'none'}}
-    />
-  </AbsoluteFill>
-);
+}) => {
+  const flat = React.useContext(FlatStage);
+  return (
+    <AbsoluteFill style={{background: bg, fontFamily: F.sans, color: C.ink}}>
+      <FontGate />
+      {!flat && (
+        <AbsoluteFill
+          style={{background: 'radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.035), transparent 65%)'}}
+        />
+      )}
+      {children}
+      {grain && !flat && <Grain />}
+      {!flat && (
+        <AbsoluteFill
+          style={{background: 'radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45))', pointerEvents: 'none'}}
+        />
+      )}
+    </AbsoluteFill>
+  );
+};
 
 // Word-by-word masked rise. "/" forces a line break, *wrapped words* get the accent treatment.
 export const Words: React.FC<{

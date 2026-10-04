@@ -310,6 +310,7 @@ FILM = [
     ('The fake commercial', 'You holding the serum like a real ad: polished beauty lighting, clean background, slow product close-ups (hands, bottle turning). End the take by pushing the bottle right into the lens until it fills the frame.'),
     ('The casual YouTube version', 'Same product, same outfit, same hair. Softer light, relaxed, like a creator filming at home. Say: “I’ve been using this every morning and I genuinely love it.”'),
     ('Talking head', 'You to camera, reading every line marked “Film: talking head” in the script below. Same setup for all of them.'),
+    ('Talking head for card lines', 'The lines that get a graphic card beside you (marked in the editor brief). Frame yourself on the left third, looking slightly toward the right side of the frame where the card will appear.'),
     ('Split-screen pair', 'Nothing new to shoot. The split screen reuses the commercial and the YouTube version side by side.'),
     ('Monitor push-in', 'Slowly push the camera toward a monitor or phone screen until the screen fills the frame. Used for the transition into the YouTube window.'),
     ('Reference photos', 'Photos of your outfit, hair, the bottle label and the lighting setup, for matching the AI shots.'),
@@ -334,6 +335,7 @@ def film_text(b):
 def ai_text(b):
     return [t for k, t in b['layers'] if k == 'ai']
 
+CARDS = {'03', '11', '13', '14', '18', '22', '23', '26', '27', '29', 'Q7', 'B18', 'B26'}
 srows = []
 for n, ch in enumerate(CH, 1):
     srows.append(f'<h3><span>{n:02d}</span>{e(ch["title"])}</h3>')
@@ -341,7 +343,12 @@ for n, ch in enumerate(CH, 1):
         vo = e(b['vo']) if b['vo'] else '<i>No voiceover. Graphic only.</i>'
         tags = []
         for i in b['mg']:
-            tags.append(f'<li class="f{"" if b["core"] else " opt"}"><b>{e(FILES.get(i, i))}</b>{"" if b["core"] else "<small>optional: use your talking head instead</small>"}</li>')
+            if i in CARDS:
+                tags.append(f'<li class="f opt"><b>S-{e(FILES.get(i, i)).rsplit(".", 1)[0]}-ALPHA.mov</b><small>card beside you: film this line on the left third</small></li>')
+            elif i == 'B11':
+                tags.append('<li class="r"><b>Film</b> Talking head (this line replaces the B11 graphic)</li>')
+            else:
+                tags.append(f'<li class="f"><b>{e(FILES.get(i, i))}</b></li>')
         for t in film_text(b):
             lab = 'Reuse' if t.lower().startswith(('split', 'return', 'callback', 'or reuse', 'reuse')) else 'Film'
             tags.append(f'<li class="r"><b>{lab}</b> {e(t)}</li>')
